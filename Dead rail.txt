@@ -39,7 +39,7 @@ local rs = game:GetService("ReplicatedStorage")
 local plr = LocalPlayer
 
 local AimbotTab = Window:CreateTab("Aimbot", "Crosshair")
-local BringsTab = Window:CreateTab("Brings", "Package")
+local ItemsTab = Window:CreateTab("Items", "Package")
 local ESPTab = Window:CreateTab("ESP", "Eye")
 local MiscellaneousTab = Window:CreateTab("Miscellaneous", "User")
 
@@ -437,7 +437,7 @@ AimbotTab:CreateSlider({
 updateFOV()
 
 local itemDropdown
-itemDropdown = BringsTab:CreateDropdown({
+itemDropdown = ItemsTab:CreateDropdown({
     Name = "Choose Item",
     Options = GetItemNames(),
     CurrentOption = "Select an item",
@@ -446,7 +446,7 @@ itemDropdown = BringsTab:CreateDropdown({
     end
 })
 
-BringsTab:CreateButton({
+ItemsTab:CreateButton({
     Name = "Refresh Items",
     Callback = function()
         local newItems = GetItemNames()
@@ -459,7 +459,7 @@ BringsTab:CreateButton({
     end
 })
 
-BringsTab:CreateButton({
+ItemsTab:CreateButton({
     Name = "Collect Selected",
     Callback = function()
         if selectedItem == "Select an item" then
@@ -492,7 +492,7 @@ BringsTab:CreateButton({
     end
 })
 
-BringsTab:CreateButton({
+ItemsTab:CreateButton({
     Name = "Collect All Items",
     Callback = function()
         local runtimeItems = workspace:FindFirstChild("RuntimeItems")
