@@ -39,9 +39,9 @@ local rs = game:GetService("ReplicatedStorage")
 local plr = LocalPlayer
 
 local AimbotTab = Window:CreateTab("Aimbot", "Crosshair")
-local BringsTab = Window:CreateTab("Bring item(W.i.p)", "Package")
+local BringsTab = Window:CreateTab("Brings", "Package")
 local ESPTab = Window:CreateTab("ESP", "Eye")
-local MovementTab = Window:CreateTab("Miscellaneous", "User")
+local MiscellaneousTab = Window:CreateTab("Miscellaneous", "User")
 
 local validNPCs = {}
 local raycastParams = RaycastParams.new()
