@@ -1,0 +1,302 @@
+local placeid = 18668065416
+
+if game.PlaceId ~= placeid then
+    if game.Players.LocalPlayer then
+        game.Players.LocalPlayer:Kick("The supported game is Blue Lock: Rivals.\nhttps://discord.gg/getfrost")
+    end
+end
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
+
+local getgenv = getgenv
+getgenv().Multiplier = 0.5
+local CFrameEnabled = false
+local connection = nil
+
+local hrp = nil
+local ball = nil
+local autoTPEnabled = false
+local autoDribbleEnabled = false
+local tpBallToYouEnabled = false
+local autoFarmEnabled = false
+local antiAFKEnabled = false
+
+local function teleportToGoal()
+end
+
+local function autoDribble()
+end
+
+local function tpBallToYou()
+end
+
+local function autoFarm()
+end
+
+local function antiAFK()
+    local vu = game:GetService("VirtualUser")
+    player.Idled:Connect(function()
+        vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        task.wait(1)
+        vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    end)
+end
+
+local function startCFrameSpeed()
+    if connection then connection:Disconnect() end
+    connection = RunService.Heartbeat:Connect(function()
+        if CFrameEnabled and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local humanoidRootPart = player.Character.HumanoidRootPart
+            local humanoid = player.Character:FindFirstChild("Humanoid")
+            if humanoid and humanoid.MoveDirection.Magnitude > 0 then
+                humanoidRootPart.CFrame = humanoidRootPart.CFrame + (humanoid.MoveDirection * getgenv().Multiplier)
+            end
+        end
+    end)
+end
+
+local Window = Luna:CreateWindow({
+    Name = "Frostware | Blue Lock: Rivals",
+    Subtitle = "https://discord.gg/getfrost",
+    LogoID = "122799856285435",
+    LoadingEnabled = true,
+    LoadingTitle = "Blue lock: Rivals ",
+    LoadingSubtitle = "https://discord.gg/getfrost",
+    ConfigSettings = {
+        RootFolder = "Frostware",
+        ConfigFolder = "Configs",
+        AutoLoadConfig = true
+    },
+})
+
+Window:CreateHomeTab({
+    SupportedExecutors = {"Delta", "Fluxus", "Codex", "Cryptic", "Vegax", "Trigon", "Synapse X", "Script-Ware", "Frostware", "Seliware", "Solara", "Xeno", "ZORARA", "Luna", "Nihon", "JJsploit", "AWP", "Wave"},
+    DiscordInvite = "https://discord.gg/GhEuhpuCBa",
+    Icon = "settings",
+})
+
+local MainTab = Window:CreateTab({
+    Name = "Home",
+    Icon = "dashboard",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+local CharacterTab = Window:CreateTab({
+    Name = "Other",
+    Icon = "menu",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+local XTab = Window:CreateTab({
+    Name = "Info",
+    Icon = "info",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+MainTab:CreateSection("Styles / Features")
+
+MainTab:CreateButton({
+    Name = "Itadori Yuji Style",
+    Description = "Loads the Yuji Style",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ultik-max/Isisis/refs/heads/main/Doneitaodrk.txt"))()
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Get Lavinho Style",
+    Description = "Loads the Lavinho Style Script",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ultik-max/Isisis/refs/heads/main/Hi.txt"))()
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Auto Get Ball",
+    Description = "Automatically Gives You The Ball",
+    Callback = function()
+        local character = player.Character or player.CharacterAdded:Wait()
+        hrp = character:WaitForChild("HumanoidRootPart")
+
+        local autoGoalKeeperEnabled = true
+
+        task.spawn(function()
+            while autoGoalKeeperEnabled do
+                ball = workspace:FindFirstChild("Football")
+                if ball and ball.AssemblyLinearVelocity.Magnitude > 5 then
+                    hrp.CFrame = CFrame.new(ball.Position + (ball.AssemblyLinearVelocity * 0.1))
+                end
+                task.wait()
+            end
+        end)
+    end
+})
+
+MainTab:CreateSection("Extra Misc")
+
+MainTab:CreateButton({
+    Name = "Anti Ragdoll",
+    Description = "Removes Ankle Breaker",
+    Callback = function()
+        task.spawn(function()
+            while true do
+                if player.Character and player.Character:FindFirstChild("Ragdolled") then
+                    player.Character.Ragdolled:Destroy()
+                end
+                task.wait()
+            end
+        end)
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "Anti AFK",
+    Description = "Stay active to avoid being kicked",
+    CurrentValue = false,
+    Callback = function(Value)
+        if Value then
+            antiAFK()
+            Luna:Notification({
+                Title = "Anti-AFK Enabled",
+                Content = "You will not be kicked for inactivity.",
+                Icon = "check_circle",
+                ImageSource = "Material"
+            })
+        end
+    end
+})
+
+MainTab:CreateSection("Other")
+
+MainTab:CreateToggle({
+    Name = "No Ability Cooldown",
+    Description = "Disables cooldown for your abilities",
+    CurrentValue = false,
+    Callback = function(Value)
+        if Value then
+            local C = require(game:GetService("ReplicatedStorage").Controllers.AbilityController)
+            local o = C.AbilityCooldown
+            C.AbilityCooldown = function(s, n, ...)
+                return o(s, n, 0, ...)
+            end
+        else
+            warn("Cooldown reversion not supported. Please re-execute the script.")
+        end
+    end
+})
+
+MainTab:CreateSection("Ball Hitbox Expander")
+
+MainTab:CreateToggle({
+    Name = "Ball Hitbox Expander",
+    Description = "Increases ball size for easier grabs",
+    CurrentValue = false,
+    Callback = function(Value)
+        if Value then
+            local ballObj = workspace:FindFirstChild("Football")
+            if ballObj then
+                ballObj.Size = Vector3.new(10, 10, 10)
+            end
+        else
+            local ballObj = workspace:FindFirstChild("Football")
+            if ballObj then
+                ballObj.Size = Vector3.new(2, 2, 2)
+            end
+        end
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "Anti Fling",
+    Description = "Prevents being flinged",
+    CurrentValue = false,
+    Callback = function(Value)
+        if Value then
+            task.spawn(function()
+                while Value do
+                    if hrp and hrp.AssemblyLinearVelocity.Magnitude > 100 then
+                        hrp.AssemblyLinearVelocity = Vector3.zero
+                    end
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
+
+CharacterTab:CreateSection("Visual")
+
+CharacterTab:CreateButton({
+    Name = "Infinite Flow",
+    Description = "Activates Infinite Flow effect",
+    Callback = function()
+        local args = {[1] = player.PlayerStats.Flow.Value}
+        game:GetService("ReplicatedStorage").Packages.Knit.Services.FlowService.RE.AuraEquip:FireServer(unpack(args))
+    end
+})
+
+XTab:CreateSection("Information - Credits")
+
+XTab:CreateButton({
+    Name = "Made by Frostware",
+    Description = "https://discord.gg/getfrost",
+    Callback = function()
+        Luna:Notification({
+            Title = "Made by Frostware",
+            Content = "Join discord for more amazing scripts",
+            Icon = "info",
+            ImageSource = "Material"
+        })
+    end
+})
+
+player.CharacterAdded:Connect(function()
+    if connection then
+        connection:Disconnect()
+        connection = nil
+    end
+    if CFrameEnabled then
+        startCFrameSpeed()
+    end
+end)
+
+RunService.Heartbeat:Connect(function()
+    if hrp then
+        if autoTPEnabled and ball then
+            local distance = (hrp.Position - ball.Position).Magnitude
+            if distance > 5 then
+                hrp.CFrame = ball.CFrame + Vector3.new(0, 1.5, 0)
+            end
+        end
+
+        if ball and ball.Parent and ball.Parent:IsA("Model") and ball.Parent:FindFirstChild("Humanoid") and ball.Parent.Name == player.Name then
+            teleportToGoal()
+        end
+    end
+
+    if autoDribbleEnabled then
+        autoDribble()
+    end
+
+    if tpBallToYouEnabled then
+        tpBallToYou()
+    end
+
+    if autoFarmEnabled then
+        autoFarm()
+    end
+end)
+
+Luna:Notification({
+    Title = "Config Loaded",
+    Content = "Your saved configuration has been automatically loaded.",
+    Icon = "check_circle",
+    ImageSource = "Material"
+})
