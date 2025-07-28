@@ -673,11 +673,11 @@ Library:SetDPIScale(85)
     
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 or game.PlaceId == 124596094333302 then
     local Window = Library:CreateWindow({
-        Title = "Slap Battles 👏",
+        Title = "FrostWare - SB V1",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
