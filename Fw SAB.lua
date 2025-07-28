@@ -1324,7 +1324,7 @@ local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-S
 local Window = Luna:CreateWindow({
 	Name = "Frostware, Steal a Brainrot.",
 	Subtitle = ".gg/getfrost",
-	LogoID = "rbxassetid://137339504342643",
+	LogoID = "137339504342643",
 	LoadingEnabled = true,
 	LoadingTitle = ".gg/getfrost",
 	LoadingSubtitle = "Developed by FWSD Team.",
@@ -1333,9 +1333,9 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "Big Hub"
 	}
 })
-local Tab = Window:CreateTab({ Name = "Main", Icon = 16898613869, ImageSource = "Custom", ShowTitle = true })
-local T2 = Window:CreateTab({ Name = "Visuals", Icon = 16898733674, ImageSource = "Custom", ShowTitle = true })
-local shop = Window:CreateTab({ Name = "Buy Items", Icon = 16898734664, ImageSource = "Custom", ShowTitle = true })
+local Tab = Window:CreateTab({ Name = "Main", Icon = dashboard, ImageSource = "Material", ShowTitle = true })
+local T2 = Window:CreateTab({ Name = "Visuals", Icon = menu, ImageSource = "Material", ShowTitle = true })
+local shop = Window:CreateTab({ Name = "Buy Items", Icon = info, ImageSource = "Material", ShowTitle = true })
 
 T2:CreateToggle({ Name = "Player ESP", Description = nil, CurrentValue = false, Callback = function(v) espPlayer = v Utility.updateESPState() end })
 T2:CreateToggle({ Name = "Plot ESP", Description = nil, CurrentValue = false, Callback = function(v) espPlot = v if v then Utility.startPlotESP() else Utility.stopPlotESP() end end })
