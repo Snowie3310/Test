@@ -695,11 +695,11 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Server")
-    CanYouFps = InfoServer1Group:AddLabel("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
-    CanYouPing = InfoServer1Group:AddLabel("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
-    ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
-    TimeServer = InfoServer1Group:AddLabel("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-    TimeNow = InfoServer1Group:AddLabel("Now Time [ " .. os.date("%X") .. " ]", true)
+    CanYouFps = InfoServer1Group:AddLabel("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
+    CanYouPing = InfoServer1Group:AddLabel("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
+    ServerPlayer = InfoServer1Group:AddLabel("Players In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
+    TimeServer = InfoServer1Group:AddLabel("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
+    TimeNow = InfoServer1Group:AddLabel("User Time [ " .. os.date("%X") .. " ]", true)
     if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
         AlarmTime = InfoServer1Group:AddLabel("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -709,7 +709,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     else
         AlarmTime = InfoServer1Group:AddLabel("Good Night [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     end
-    AgeAccYou = InfoServer1Group:AddLabel("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
+    AgeAccYou = InfoServer1Group:AddLabel("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
     if game.Workspace:FindFirstChild("RoomsFolder") then
         PocketSpawn = {}
         for i, v in pairs(game.Workspace.RoomsFolder:GetChildren()) do
@@ -730,24 +730,24 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     end
     CodeKeypad = InfoServer1Group:AddLabel("Code Keypad [ " .. tostring((# game.Players:GetPlayers()) * 25 + 1100 - 7) .. " ]", true)
     if not game.Workspace:FindFirstChild("Keypad") then
-        KeypadSpawn = InfoServer1Group:AddLabel("Keypad Spawn [ No ]", true)
+        KeypadSpawn = InfoServer1Group:AddLabel("Keypad has not spawned yet", true)
     else
-        KeypadSpawn = InfoServer1Group:AddLabel("Keypad Spawn [ Yes ]", true)
+        KeypadSpawn = InfoServer1Group:AddLabel("Keypad Spawned", true)
     end
     if not game.Workspace:FindFirstChild("Toolbox") then
-        ToolboxSpawn = InfoServer1Group:AddLabel("Player Spawn Toolbox [ No ]", true)
+        ToolboxSpawn = InfoServer1Group:AddLabel("Toolbox spawned [ No ]", true)
     else
-        ToolboxSpawn = InfoServer1Group:AddLabel("Player Spawn Toolbox [ Yes ]", true)
+        ToolboxSpawn = InfoServer1Group:AddLabel("Toolbox Spawned! [ Yes ]", true)
     end
     if not game.Workspace:FindFirstChild("Gravestone") then
-        GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone Spawn [ No ]", true)
+        GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone has not spawned yet", true)
     else
-        GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone Spawn [ Yes ]", true)
+        GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone Spawned! [ Yes ]", true)
     end
     if not game.Workspace:FindFirstChild("Gift") then
-        GiftSpawn = InfoServer1Group:AddLabel("Player Spawn Gift [ No ]", true)
+        GiftSpawn = InfoServer1Group:AddLabel("Gift has not spawned yet", true)
     else
-        GiftSpawn = InfoServer1Group:AddLabel("Player Spawn Gift [ Yes ]", true)
+        GiftSpawn = InfoServer1Group:AddLabel("Gift Spawned!", true)
     end
     if workspace.Arena.island5.Slapples:FindFirstChild("GoldenSlapple") and workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChild("Glove") and workspace.Arena.island5.Slapples.GoldenSlapple.Glove.Transparency == 1 then
         GoldenSlappleSpawn = InfoServer1Group:AddLabel("Golden Slapple Spawn [ No ]", true)
@@ -763,11 +763,11 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     elseif game.Workspace:FindFirstChild("MATERIALIZEOrb") then
         OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ MATERIALIZE ]", true)
     else
-        OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ No ]", true)
+        OrbSpawn = InfoServer1Group:AddLabel("Orb has not spawned", true)
     end
     CheckNullShards = InfoServer1Group:AddLabel("Check Null Shard [ " .. game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].NullShards.Value .. " ]", true)
     CheckTournamentWins = InfoServer1Group:AddLabel("Check Tournament Win [ " .. game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].TournamentWins.Value .. " ]", true)
-    CheckSlap = InfoServer1Group:AddLabel("Check Slap [ " .. game.Players.LocalPlayer.leaderstats.Slaps.Value .. " ]", true)
+    CheckSlap = InfoServer1Group:AddLabel("Check Slaps [ " .. game.Players.LocalPlayer.leaderstats.Slaps.Value .. " ]", true)
     Glove = {}
     for i, v in pairs(game.Workspace.Lobby.GloveStands:GetChildren()) do
         if v.Name ~= "Unknown" then
@@ -775,11 +775,11 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
         end
     end
     InfoServer1Group:AddLabel("Much Glove [ " .. # Glove .. " ]", true)
-    GloveCheck = InfoServer1Group:AddLabel("You're Using Glove [ " .. game.Players.LocalPlayer.leaderstats.Glove.Value .. " ]", true)
-    PlateTime = InfoServer1Group:AddLabel("Plate Time [ " .. game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text .. " ]", true)
+    GloveCheck = InfoServer1Group:AddLabel("You're Using [ " .. game.Players.LocalPlayer.leaderstats.Glove.Value .. " ]", true)
+    PlateTime = InfoServer1Group:AddLabel("Time in plate [ " .. game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text .. " ]", true)
     GravityYou = InfoServer1Group:AddLabel("Gravity [ " .. game.Workspace.Gravity .. " ]")
-    PositionYou = InfoServer1Group:AddLabel("Position In Your [ " .. tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)) .. " ]", true)
-    local InfoServer3Group = Tabs.Tab:AddLeftGroupbox("Glove Badge / Slap")
+    PositionYou = InfoServer1Group:AddLabel("Your Position [ " .. tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)) .. " ]", true)
+    local InfoServer3Group = Tabs.Tab:AddLeftGroupbox("Glove Badges / Slap")
     local BadgeSuccess = {}
     local BadgeFailure = {}
     for i, v in pairs(game.Players.LocalPlayer._unlockedGloves:GetChildren()) do
@@ -808,17 +808,17 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                 end
                 if PlayerTa then
                     _G.CheckGlovePlayer = PlayerTa.Name
-                    PlayersCheck:SetText("Player Check [ ✅ ] [ " .. _G.CheckGlovePlayer .. " ]", _G.TimeNotify)
+                    PlayersCheck:SetText("Check player [ " .. _G.CheckGlovePlayer .. " ]", _G.TimeNotify)
                 else
-                    PlayersCheck:SetText("Player Check [ ❌ ]", _G.TimeNotify)
+                    PlayersCheck:SetText("Player was not checked.", _G.TimeNotify)
                 end
             end
         end
     })
     GeneralBadge = InfoServer3Group:AddLabel("General Glove / Badge [ ✅ - " .. (# BadgeSuccess == 0 and "Nah" or # BadgeSuccess) .. " / ❌ - " .. (# BadgeFailure == 0 and "Nah" or # BadgeFailure) .. " ]", true)
-    PlayersCheck = InfoServer3Group:AddLabel("Player Check [ User ]", true)
+    PlayersCheck = InfoServer3Group:AddLabel("check player [ User ]", true)
     InfoServer3Group:AddButton({
-        Text = "Check Glove / Badge",
+        Text = "Check Gloves / Badges",
         Func = function()
             local BadgeSuccess = {}
             local BadgeFailure = {}
@@ -851,11 +851,11 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
             if _G.AutoSetInfo == true then
                 AutoSetInfoServer = game:GetService("RunService").RenderStepped:Connect(function()
                     if _G.AutoSetInfo == true then
-                        CanYouFps:SetText("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]")
-                        CanYouPing:SetText("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]")
-                        ServerPlayer:SetText("Player In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
-                        TimeServer:SetText("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]")
-                        TimeNow:SetText("Now Time [ " .. os.date("%X") .. " ]")
+                        CanYouFps:SetText("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]")
+                        CanYouPing:SetText("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]")
+                        ServerPlayer:SetText("Players In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
+                        TimeServer:SetText("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]")
+                        TimeNow:SetText("Current time [ " .. os.date("%X") .. " ]")
                         if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
                             AlarmTime:SetText("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]")
                         elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -878,56 +878,56 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                         elseif # PocketSpawn > 0 then
                             PocketKeypad:SetText("Pocket Room [ Yes ] [ " .. # PocketSpawn .. " ]")
                         end
-                        AgeAccYou:SetText("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]")
+                        AgeAccYou:SetText("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]")
                         if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
                             ResetTime:SetText("Time Spawn [ " .. game.Players.RespawnTime .. " ]")
                         else
                             ResetTime:SetText("Time Spawn [ Not Dead ]")
                         end
-                        CodeKeypad:SetText("Code Keypad [ " .. tostring((# game.Players:GetPlayers()) * 25 + 1100 - 7) .. " ]")
+                        CodeKeypad:SetText("Keypad Code [ " .. tostring((# game.Players:GetPlayers()) * 25 + 1100 - 7) .. " ]")
                         if not game.Workspace:FindFirstChild("Keypad") then
-                            KeypadSpawn:SetText("Keypad Spawn [ No ]")
+                            KeypadSpawn:SetText("Keypad has not spawned yet")
                         else
-                            KeypadSpawn:SetText("Keypad Spawn [ Yes ]")
+                            KeypadSpawn:SetText("Keypad Spawned!")
                         end
                         if not game.Workspace:FindFirstChild("Toolbox") then
-                            ToolboxSpawn:SetText("Player Spawn Toolbox [ No ]")
+                            ToolboxSpawn:SetText("Toolbox has not spawned yet")
                         else
-                            ToolboxSpawn:SetText("Player Spawn Toolbox [ Yes ]")
+                            ToolboxSpawn:SetText("Toolbox spawned!")
                         end
                         if not game.Workspace:FindFirstChild("Gravestone") then
-                            GravestoneSpawn:SetText("Gravestone Spawn [ No ]")
+                            GravestoneSpawn:SetText("Gravestone has not spawned yet")
                         else
-                            GravestoneSpawn:SetText("Gravestone Spawn [ Yes ]")
+                            GravestoneSpawn:SetText("Gravestone Spawned!")
                         end
                         if not game.Workspace:FindFirstChild("Gift") then
-                            GiftSpawn:SetText("Player Spawn Gift [ No ]")
+                            GiftSpawn:SetText("gift has not spawned yet")
                         else
-                            GiftSpawn:SetText("Player Spawn Gift [ Yes ]")
+                            GiftSpawn:SetText("gift spawned!")
                         end
                         if workspace.Arena.island5.Slapples:FindFirstChild("GoldenSlapple") and workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChild("Glove") and workspace.Arena.island5.Slapples.GoldenSlapple.Glove.Transparency == 1 then
-                            GoldenSlappleSpawn:SetText("Golden Slapple Spawn [ No ]")
+                            GoldenSlappleSpawn:SetText("Golden Slapple Has not spawned yet")
                         else
-                            GoldenSlappleSpawn:SetText("Golden Slapple Spawn [ Yes ]")
+                            GoldenSlappleSpawn:SetText("Golden Slapple Spawned!")
                         end
                         if game.Workspace:FindFirstChild("JetOrb") then
-                            OrbSpawn:SetText("Spawn Orb [ Jet ]")
+                            OrbSpawn:SetText("Orb spawned [ Jet ]")
                         elseif game.Workspace:FindFirstChild("PhaseOrb") then
-                            OrbSpawn:SetText("Spawn Orb [ Phase ]")
+                            OrbSpawn:SetText("Orb Spawned [ Phase ]")
                         elseif game.Workspace:FindFirstChild("SiphonOrb") then
-                            OrbSpawn:SetText("Spawn Orb [ Siphon ]")
+                            OrbSpawn:SetText("Orb Spawend [ Siphon ]")
                         elseif game.Workspace:FindFirstChild("MATERIALIZEOrb") then
-                            OrbSpawn:SetText("Spawn Orb [ MATERIALIZE ]")
+                            OrbSpawn:SetText("Orb Spawned [ MATERIALIZE ]")
                         else
-                            OrbSpawn:SetText("Spawn Orb [ No ]")
+                            OrbSpawn:SetText("Orb has not Spawned yet")
                         end
                         CheckNullShards:SetText("Check Null Shard [ " .. game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].NullShards.Value .. " ]")
                         CheckTournamentWins:SetText("Check Tournament Win [ " .. game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].TournamentWins.Value .. " ]")
-                        CheckSlap:SetText("Check Slap [ " .. game.Players.LocalPlayer.leaderstats.Slaps.Value .. " ]")
-                        GloveCheck:SetText("You're Using Glove [ " .. game.Players.LocalPlayer.leaderstats.Glove.Value .. " ]")
-                        PlateTime:SetText("Plate Time [ " .. game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text .. " ]")
+                        CheckSlap:SetText("Check Slaps [ " .. game.Players.LocalPlayer.leaderstats.Slaps.Value .. " ]")
+                        GloveCheck:SetText("You're Using [ " .. game.Players.LocalPlayer.leaderstats.Glove.Value .. " ]")
+                        PlateTime:SetText("Time on plate [ " .. game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text .. " ]")
                         GravityYou:SetText("Gravity [ " .. game.Workspace.Gravity .. " ]", true)
-                        PositionYou:SetText("Position In Your [ " .. tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)) .. " ]")
+                        PositionYou:SetText("Your Position [ " .. tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)) .. " ]")
                     end
                 end)
             end
@@ -943,12 +943,12 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     InfoServer2Group:AddButton("Copy Position", function()
         if setclipboard then
             setclipboard(tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)))
-            Notification("Copied Success", _G.TimeNotify)
+            Notification("successfully copied!", _G.TimeNotify)
         else
             Notification(tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)), _G.TimeNotify)
         end
     end)
-    local InfoServer4Group = Tabs.Tab:AddRightGroupbox("Search Glove Player")
+    local InfoServer4Group = Tabs.Tab:AddRightGroupbox("Search Player Glove")
     InfoServer4Group:AddInput("GlovePlayers", {
         Default = "",
         Numeric = false,
@@ -966,13 +966,13 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
             end
             if Glove then
                 _G.GlovePlayer = Glove.Name
-                TagGlove:SetText("Glove Check [ ✅ ] [ " .. Glove.Name .. " ]", _G.TimeNotify)
+                TagGlove:SetText("Glove Checked [ " .. Glove.Name .. " ]", _G.TimeNotify)
             else
-                TagGlove:SetText("Glove Check [ ❌ ]", _G.TimeNotify)
+                TagGlove:SetText("Glove was not Checked", _G.TimeNotify)
             end
         end
     })
-    TagGlove = InfoServer4Group:AddLabel("Glove Search [ Nah ]", true)
+    TagGlove = InfoServer4Group:AddLabel("Glove was not searched.", true)
     InfoServer4Group:AddButton({
         Text = "Search Glove",
         Func = function()
@@ -1018,9 +1018,9 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
             end
             if PlayerTa then
                 _G.CheckPlayer = PlayerTa.Name
-                PlayersCheck1:SetText("Player Check [ ✅ ] [ " .. _G.CheckPlayer .. " ]")
+                PlayersCheck1:SetText("Player Checked [ " .. _G.CheckPlayer .. " ]")
             else
-                PlayersCheck1:SetText("Player Check [ ❌ ]")
+                PlayersCheck1:SetText("Player was not checked.")
             end
         end
     })
@@ -1034,8 +1034,8 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                 if game.Players[_G.CheckPlayer].Character ~= nil and game.ReplicatedStorage.PlayerData:FindFirstChild(_G.CheckPlayer) ~= nil then
                     CheckNullShardsPlayer:SetText("Check Null Shard [ " .. game.ReplicatedStorage.PlayerData[_G.CheckPlayer].NullShards.Value .. " ]")
                     CheckTournamentWinsPlayer:SetText("Check Tournament Win [ " .. game.ReplicatedStorage.PlayerData[_G.CheckPlayer].TournamentWins.Value .. " ]")
-                    CheckSlapPlayer:SetText("Check Slap [ " .. game.Players[_G.CheckPlayer].leaderstats.Slaps.Value .. " ]")
-                    GloveCheckPlayer:SetText("Using Glove [ " .. game.Players[_G.CheckPlayer].leaderstats.Glove.Value .. " ]")
+                    CheckSlapPlayer:SetText("Check Slaps [ " .. game.Players[_G.CheckPlayer].leaderstats.Slaps.Value .. " ]")
+                    GloveCheckPlayer:SetText("Using [ " .. game.Players[_G.CheckPlayer].leaderstats.Glove.Value .. " ]")
                     if game.Players[_G.CheckPlayer].Character ~= nil and game.Players[_G.CheckPlayer].Character:FindFirstChild("HumanoidRootPart") ~= nil then
                         PositionPlayer:SetText("Position [ " .. tostring(math.round(game.Players[_G.CheckPlayer].Character.HumanoidRootPart.Position.X) .. ", " .. math.round(game.Players[_G.CheckPlayer].Character.HumanoidRootPart.Position.Y) .. ", " .. math.round(game.Players[_G.CheckPlayer].Character.HumanoidRootPart.Position.Z)) .. " ]")
                     else
@@ -1044,7 +1044,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                 else
                     CheckNullShardsPlayer:SetText("Check Null Shard [ Nah ]")
                     CheckTournamentWinsPlayer:SetText("Check Tournament Win [ Nah ]")
-                    CheckSlapPlayer:SetText("Check Slap [ Nah ]")
+                    CheckSlapPlayer:SetText("Check Slaps [ Nah ]")
                     GloveCheckPlayer:SetText("Using Glove [ Nah ]")
                     PositionPlayer:SetText("Position [ Nah ]")
                 end
@@ -1054,7 +1054,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     })
     CheckNullShardsPlayer = InfoServer5Group:AddLabel("Check Null Shard [ Nah ]", true)
     CheckTournamentWinsPlayer = InfoServer5Group:AddLabel("Check Tournament Win [ Nah ]", true)
-    CheckSlapPlayer = InfoServer5Group:AddLabel("Check Slap [ Nah ]", true)
+    CheckSlapPlayer = InfoServer5Group:AddLabel("Check Slaps [ Nah ]", true)
     GloveCheckPlayer = InfoServer5Group:AddLabel("Using Glove [ Nah ]", true)
     PositionPlayer = InfoServer5Group:AddLabel("Position [ Nah ]", true)
     local Script1Group = Tabs.Tab1:AddLeftGroupbox("Script Basic")
@@ -1945,8 +1945,8 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
         end
     })
     local Badge3Group = Tabs.Tab3:AddLeftGroupbox("Teleport / Show")
-    Badge3Group:AddDropdown("Teleport Safe", {
-        Text = "Teleport Safe",
+    Badge3Group:AddDropdown("Teleport to safe place", {
+        Text = "Teleport to Safe place",
         Values = {
             "SafeSpotBox 1.0",
             "SafeSpotBox 2.0",
@@ -1969,7 +1969,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
         Values = {
             "Get Badge",
             "Show All",
-            "Off Show All",
+            "Disable Show All",
             "Teleport Spawn 1",
             "Teleport Spawn 2",
             "Teleport Spawn 3",
@@ -1984,7 +1984,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                 if game.ReplicatedStorage.Assets:FindFirstChild("Retro") then
                     game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
                 end
-            elseif Value == "Off Show All" then
+            elseif Value == "Disable Show All" then
                 if game.Workspace:FindFirstChild("Retro") then
                     game.Workspace.Retro.Parent = game.ReplicatedStorage:FindFirstChild("Assets")
                 end
@@ -2024,10 +2024,10 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
         Text = "Repressed Memory",
         Values = {
             "Show All",
-            "Off Show All",
-            "Teleport Enter",
-            "Teleport Portal",
-            "Teleport Bob Plushie",
+            "Disable Show All",
+            "Teleport to Enter",
+            "Teleport to Portal",
+            "Teleport to Bob Plushie",
             "Click Bob Plushie"
         },
         Default = "",
@@ -2037,17 +2037,17 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
                 if game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") then
                     game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
                 end
-            elseif Value == "Off Show All" then
+            elseif Value == "Disable Show All" then
                 if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
                     game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
                 end
-            elseif Value == "Teleport Enter" then
+            elseif Value == "Teleport to Enter" then
                 if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.Limbo.CFrame * CFrame.new(0, - 5, 0)
                 end
-            elseif Value == "Teleport Portal" then
+            elseif Value == "Teleport to Portal" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
-            elseif Value == "Teleport Bob Plushie" then
+            elseif Value == "Teleport to Bob Plushie" then
                 if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
                 elseif game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") then
@@ -2075,21 +2075,21 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
             end
         end
     })
-    Badge3Group:AddDropdown("Map Kraken", {
-        Text = "Map Kraken",
+    Badge3Group:AddDropdown("Kraken map", {
+        Text = "Kraken map",
         Values = {
             "Show All",
-            "Off Show All",
-            "Teleport Enter"
+            "Disable Show All",
+            "Teleport to entrance"
         },
         Default = "",
         Multi = false,
         Callback = function(Value)
             if Value == "Show All" then
                 game.ReplicatedStorage.AbyssAssets.Abyss.Parent = game.Workspace
-            elseif Value == "Off Show All" then
+            elseif Value == "Disable Show All" then
                 game.Workspace.Abyss.Parent = game.ReplicatedStorage.AbyssAssets
-            elseif Value == "Teleport Enter" then
+            elseif Value == "Teleport to entrance" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Abyss.Spawn.CFrame * CFrame.new(0, 10, 0)
             end
         end
@@ -2127,7 +2127,7 @@ end
 end
 ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification(" You're supposed to Autoexecute this. ", _G.TimeNotify)
             end
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
         end
@@ -2154,7 +2154,7 @@ end
 end
 ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
             end
             game:GetService("TeleportService"):Teleport(74169485398268)
         end
@@ -2179,7 +2179,7 @@ for i,v in ipairs(game:GetService("Workspace"):GetDescendants()) do
         end
 ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
             end
             game:GetService("TeleportService"):Teleport(17290438723)
         end
@@ -2204,7 +2204,7 @@ end
 end
 ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
             end
             repeat
                 task.wait()
@@ -2289,7 +2289,7 @@ wait(0.5)
 game:GetService("TeleportService"):Teleport(6403373529)
     ]])
                 elseif not teleportFunc then
-                    Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                    Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
                 end
                 game:GetService("TeleportService"):Teleport(9431156611)
             else
@@ -2343,7 +2343,7 @@ end
 end
     ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this", _G.TimeNotify)
             end
             game:GetService("TeleportService"):Teleport(11828384869)
         end
@@ -2400,7 +2400,7 @@ end
 end
     ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
             end
             if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                 if workspace.Arena:FindFirstChild("CannonIsland") and workspace.Arena.CannonIsland:FindFirstChild("Cannon Island [OLD]") then
@@ -2465,7 +2465,7 @@ task.wait()
 end
 ]])
             elseif not teleportFunc then
-                Notification("Bruh, Not only executor you autoexe", _G.TimeNotify)
+                Notification("You're supposed to Autoexecute this.", _G.TimeNotify)
             end
             for i, v in pairs(workspace.BountyHunterRoom:GetChildren()) do
                 if v.Name == "Model" and v:FindFirstChild("Meshes/boxshadow_Cube.005") and v["Meshes/boxshadow_Cube.005"]:FindFirstChild("Hitbox") then
@@ -2476,7 +2476,7 @@ end
     })
     local Badge2Group = Tabs.Tab3:AddRightGroupbox("Badge")
     Badge2Group:AddButton({
-        Text = "Get Glove Kinetic",
+        Text = "Get Kinetic",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "Stun" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
                 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2517,7 +2517,7 @@ end
         Text = "Auto Win Kraken",
         Func = function()
             if game.Workspace:FindFirstChild("Abyss") ~= nil then
-                Notification("When the kraken stops attack, click to hit.", _G.TimeNotify)
+                Notification("When the kraken stops attacking, click and hit.", _G.TimeNotify)
                 repeat
                     task.wait()
                     if game.Workspace:FindFirstChild("Abyss") and game.Workspace.Abyss:FindFirstChild("Ship") and game.Workspace.Abyss.Ship:FindFirstChild("Ghost_Ship") and game.Workspace.Abyss.Ship.Ghost_Ship:FindFirstChild("Wall") then
@@ -2532,12 +2532,12 @@ end
                     end
                 until game.Workspace:FindFirstChild("Abyss") == nil
             else
-                Notification("You have enter Map Abyss [ don't show all, not work ]", _G.TimeNotify)
+                Notification("You have to enter Map Abyss [ show all doesn't work ]", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Glove Bomb",
+        Text = "Get Bomb",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "Warp" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124919840) then
                 OldTouch = workspace.DEATHBARRIER.CanTouch
@@ -2567,7 +2567,7 @@ end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Glove Plank",
+        Text = "Get Plank",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
                 local OldCFrew = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2583,12 +2583,12 @@ end
                 wait(0.2)
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldCFrew
             else
-                Notification("You don't have Fort equipped, or you have Owner Badge", _G.TimeNotify)
+                Notification("You don't have Fort equipped, or you have already owned this Badge", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Glove Blasphemy",
+        Text = "Get Blasphemy",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "bus" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061) then
                 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2626,12 +2626,12 @@ end
                     wait(5.5)
                 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
             else
-                Notification("You don't have bus equipped, or you have owner badge", _G.TimeNotify)
+                Notification("You don't have bus equipped, or you have already owned this Badge", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Auto Quests Chest All Glove",
+        Text = "Auto Tresure hunt",
         Func = function()
             if workspace.Arena.CannonIsland.TreasureSpots:FindFirstChild("_treasureSpot5").Decal.Transparency == 0 then
                 repeat
@@ -2656,7 +2656,7 @@ end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Glove [Redacted]",
+        Text = "Get Redacted",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
                 for i, v in pairs(workspace.PocketDimension.Doors:GetChildren()) do
@@ -2674,7 +2674,7 @@ end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Glove Tank",
+        Text = "Get Tank",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pillow" and game.Players.LocalPlayer:FindFirstChild("_unlockedGloves") and game.Players.LocalPlayer._unlockedGloves:FindFirstChild("Shotgun").Value == true and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
                 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(CFrame.new(260, 36, 191))
@@ -2716,7 +2716,7 @@ end
                     game:GetService("ReplicatedStorage").GeneralAbility:FireServer("explosive")
                 until workspace:FindFirstChild(game.Players.LocalPlayer.Name .. "'s PillowFort") == nil
             else
-                Notification("You don't have Pillow equipped, or you don't have owner Shotgun or, you have lobby", _G.TimeNotify)
+                Notification("You don't have Pillow equipped, or you don't own Shotgun, or you are in lobby", _G.TimeNotify)
             end
         end
     })
@@ -2755,7 +2755,7 @@ end
                     end
                 until game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health <= 0 or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2127567042)
             else
-                Notification("You don't have Ghost equipped, or You have go to lobby", _G.TimeNotify)
+                Notification("You don't have Ghost equipped, or You are in lobby", _G.TimeNotify)
             end
         end
     })
@@ -2767,39 +2767,39 @@ end
                 fireclickdetector(game.Workspace.Arena.island5.Orange.ClickDetector)
                 fireclickdetector(game.Workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
             else
-                Notification("You have Owner badge", _G.TimeNotify)
+                Notification("You have already owned these Badges", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Free Ice Skate",
+        Text = "Get Ice Skate",
         Func = function()
             if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2906002612987222) then
                 game:GetService("ReplicatedStorage").IceSkate:FireServer("Freeze")
             else
-                Notification("You have Owner badge", _G.TimeNotify)
+                Notification("You have already Owned this badge.", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Free GRRRRR",
+        Text = "Get GRRRRR",
         Func = function()
             if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2127861437) then
                 game:GetService("ReplicatedStorage").GRRRRR:FireServer(true)
             else
-                Notification("You have Owner badge", _G.TimeNotify)
+                Notification("You have already owned this badge", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Free Lamp",
+        Text = "Get Lamp",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 490455814138437) then
                 for i = 1, 5 do
                     game:GetService("ReplicatedStorage").nightmare:FireServer("LightBroken")
                 end
             else
-                Notification("You don't have ZZZZZZZ equipped, or Owner badge", _G.TimeNotify)
+                Notification("You don't have ZZZZZZZ equipped, or you already own this badge", _G.TimeNotify)
             end
         end
     })
@@ -2849,12 +2849,12 @@ end
                     end
                 until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
             else
-                Notification("You don't have equiped Cloud | Badge Fish | You are in the lobby.", _G.TimeNotify)
+                Notification("You don't have Cloud equipped | Fish Badge | or You are in the lobby.", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Join Cheese",
+        Text = "Get Cheese",
         Func = function()
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "el gato" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0, 2, 35)
@@ -2869,7 +2869,7 @@ end
         end
     })
     Badge2Group:AddButton({
-        Text = "Get Join Retro",
+        Text = "Get Retro",
         Func = function()
             if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                 if workspace.Arena:FindFirstChild("CannonIsland") and workspace.Arena.CannonIsland:FindFirstChild("Cannon Island [OLD]") then
@@ -2890,7 +2890,7 @@ end
         end
     })
     Badge2Group:AddButton({
-        Text = "Join Map Slenderman",
+        Text = "Join Slenderman map",
         Func = function()
             if workspace:FindFirstChild("BountyHunterRoom") and workspace.BountyHunterRoom:FindFirstChild("BountyHunterLever") then
                 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -2911,15 +2911,15 @@ end
                     end
                 end
             else
-                Notification("You don't have completed quest hitman", _G.TimeNotify)
+                Notification("You have not completed hitman's quest.", _G.TimeNotify)
             end
         end
     })
     Badge2Group:AddButton({
-        Text = "Join Map Egger",
+        Text = "Join Egger",
         Func = function()
             if workspace:FindFirstChild("EasterHuntEggs") == nil then
-                Notification("You have get Hitman quest", _G.TimeNotify)
+                Notification("You have to get Hitman quest", _G.TimeNotify)
                 repeat
                     task.wait()
                 until workspace:FindFirstChild("EasterHuntEggs")
@@ -3011,7 +3011,7 @@ end
                     task.wait()
                 end
             elseif _G.BobFarm == true then
-                Notification("You don't have Replica equipped, or you have owner badge", 5)
+                Notification("You don't have Replica equipped, or you have already owned this badge", 5)
                 wait(0.05)
                 Toggles["Bob"]:SetValue(false)
             end
@@ -3208,8 +3208,8 @@ end
             _G.AutoBrick = Value
         end
     })
-    Badge2Group:AddToggle("AutoFram Brick", {
-        Text = "AutoFram Brick",
+    Badge2Group:AddToggle("AutoFarm Brick", {
+        Text = "AutoFarm Brick",
         Default = false,
         Callback = function(Value)
             _G.Brickfarm = Value
@@ -3231,7 +3231,7 @@ end
             elseif Brickfarm == true then
                 Notification("You don't have Brick equipped", _G.TimeNotify)
                 wait(0.05)
-                Toggles["AutoFram Brick"]:SetValue(false)
+                Toggles["AutoFarm Brick"]:SetValue(false)
             end
         end
     })
@@ -3248,7 +3248,7 @@ end
                     task.wait()
                 end
             elseif _G.AutoTpPlate == true then
-                Notification("You need enter erane, or 7 people the server", _G.TimeNotify)
+                Notification("You need to enter arena, or 7 people in the server", _G.TimeNotify)
                 wait(0.05)
                 Toggles["Get Tycoon"]:SetValue(false)
             end
@@ -3258,7 +3258,7 @@ end
     Badge3Group:AddDropdown("Tycoon Mastery", {
         Text = "Tycoon Mastery",
         Values = {
-            "15k Point Die",
+            "Die at 15k points",
             "Defense Tycoon (Walk)",
             "Defense Tycoon (TP)",
             "Kill Player (Tycoon God)"
@@ -3276,7 +3276,7 @@ end
             _G.AutoTycoonMastery = Value
             if game.Players.LocalPlayer.leaderstats.Glove.Value == "Tycoon" then
                 while _G.AutoTycoonMastery do
-                    if _G.TycoonMastery == "15k Point Die" then
+                    if _G.TycoonMastery == "Die at 15k points" then
                         if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
                             if game.Workspace:FindFirstChild("ÅTycoon" .. game.Players.LocalPlayer.Name) and game.Workspace["ÅTycoon" .. game.Players.LocalPlayer.Name]:GetAttribute("LastCount") < 15000 then
                                 for _, v in pairs(game.Workspace:GetChildren()) do
@@ -4938,7 +4938,7 @@ end
             end
         end
     })
-    Misc2Group:AddDropdown("Teleport Place", {
+    Misc2Group:AddDropdown("Teleport to Place", {
         Text = "Teleport",
         Values = {
             "Arena",
@@ -4976,13 +4976,13 @@ end
                 if workspace:FindFirstChild("TournamentIsland") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TournamentIsland.Spawns.Part.CFrame * CFrame.new(0, 2, 0)
                 else
-                    Notification("Tournament Island don't not spawn.", _G.TimeNotify)
+                    Notification("Tournament Island hasn't spawned.", _G.TimeNotify)
                 end
             elseif Value == "Cannon Island" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0, 0, 35)
             elseif Value == "Keypad" then
                 if not workspace:FindFirstChild("Keypad") then
-                    Notification("Server in don't have keypad.", _G.TimeNotify)
+                    Notification("Server doesn't have keypad.", _G.TimeNotify)
                 else
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
                 end
@@ -5029,8 +5029,8 @@ end
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
         end
     end)
-    Misc2Group:AddToggle("Auto Teleport Player", {
-        Text = "Auto Teleport Player",
+    Misc2Group:AddToggle("Auto Teleport to Player", {
+        Text = "Auto Teleport to Player",
         Default = false,
         Callback = function(Value)
             _G.PlayerTele = Value
@@ -5172,7 +5172,7 @@ end
         DoubleClick = true,
         Func = function()
             if not workspace:FindFirstChild("Keypad") then
-                Notification("Server in don't have keypad, can have started serverhop", _G.TimeNotify)
+                Notification("Server doesn't have keypad, you can serverhop", _G.TimeNotify)
                 task.wait(1.5)
                 for _, v in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
                     if v.playing < v.maxPlayers and v.JobId ~= game.JobId then
@@ -5193,8 +5193,8 @@ end
             end
         end
     })
-    Misc1Basic:AddToggle("Auto Code Pocket Keypad", {
-        Text = "Auto Code Pocket Keypad",
+    Misc1Basic:AddToggle("Auto keypad", {
+        Text = "Auto Keypad",
         Default = false,
         Callback = function(Value)
             _G.WriteCodeKeypad = Value
@@ -5218,10 +5218,10 @@ end
             end
         end
     })
-    Misc1Basic:AddInput("Write Code Keypad", {
+    Misc1Basic:AddInput("Write Code in Keypad", {
         Default = "",
         Numeric = true,
-        Text = "Write Code Keypad",
+        Text = "Write Code in Keypad",
         Placeholder = "UserCode",
         Callback = function(Value)
             _G.writeCode = Value
@@ -5230,7 +5230,7 @@ end
     Misc1Basic:AddDropdown("Enter Keypad", {
         Text = "Enter Keypad",
         Values = {
-            "Not Enter",
+            "Don't Enter",
             "Enter"
         },
         Default = "Enter",
@@ -5241,7 +5241,7 @@ end
     })
     Misc1Basic:AddButton("Write Keypad", function()
         if not workspace:FindFirstChild("Keypad") then
-            Notification("Server in don't have keypad.", _G.TimeNotify)
+            Notification("Server doesn't have keypad.", _G.TimeNotify)
         else
             game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
             fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
@@ -5255,8 +5255,8 @@ end
             end
         end
     end)
-    Misc1Basic:AddDropdown("Easter Egg Code", {
-        Text = "Easter Egg Code",
+    Misc1Basic:AddDropdown("Easter Egg Codes", {
+        Text = "Easter Egg Codes",
         Values = {
             "911",
             "8008",
@@ -5272,7 +5272,7 @@ end
     })
     Misc1Basic:AddButton("Easter Egg Keypad", function()
         if not workspace:FindFirstChild("Keypad") then
-            Notification("Server in don't have keypad.", _G.TimeNotify)
+            Notification("Server doesn’t have keypad.", _G.TimeNotify)
         else
             game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
             fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
@@ -5286,7 +5286,7 @@ end
         end
     end)
     Misc1Basic:AddDropdown("FarmSlap", {
-        Text = "AutoFarm Slap",
+        Text = "AutoFarm Slaps",
         Values = {
             "Aimbot",
             "Teleport",
@@ -5298,8 +5298,8 @@ end
             _G.AutoFarmSlapBattles = Value
         end
     })
-    Misc1Basic:AddToggle("Auto Farm Slap", {
-        Text = "Auto Farm Slap",
+    Misc1Basic:AddToggle("Auto Farm Slaps", {
+        Text = "Auto Farm Slaps",
         Default = false,
         Callback = function(Value)
             _G.AutoFarmSlap = Value
@@ -5961,14 +5961,14 @@ end
                 task.wait()
             end
         end
-    }):AddKeyPicker("SpamAbility", {
+    }):AddKeyPicker("Spam Ability", {
         Default = "B",
         Text = "Auto Spam Ability",
         Mode = "Toggle",
         SyncToggleState = true
     })
-    Misc1Basic:AddToggle("Spam Stun Untitled Tag", {
-        Text = "Spam Stun Untitled Tag",
+    Misc1Basic:AddToggle("Spam Untitled Tag", {
+        Text = "Spam Untitled Tag",
         Default = false,
         Callback = function(Value)
             _G.SpamStunUntitledTag = Value
@@ -5991,12 +5991,12 @@ end
             elseif Value == true then
                 Notification("You don't have Untitled Tag Glove equipped", _G.TimeNotify)
                 wait(0.05)
-                Toggles["Spam Stun Untitled Tag"]:SetValue(false)
+                Toggles["Spam Untitled Tag"]:SetValue(false)
             end
         end
     })
-    Misc1Basic:AddToggle("Spam Ability 250 Kill", {
-        Text = "Spam Ability 250 Kill",
+    Misc1Basic:AddToggle("Spam Ability Of 250 Killstreak", {
+        Text = "Spam Ability Of 250 Killstreak",
         Default = false,
         Callback = function(Value)
             _G.SpamAbliKilll = Value
@@ -6039,7 +6039,7 @@ end
             end)
         end)
     end)
-    Misc1Basic:AddButton("Get All Sword", function()
+    Misc1Basic:AddButton("Get All Swords", function()
         if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swordfighter" then
             for i, v in pairs({
                 "Ice Dagger",
@@ -6079,8 +6079,8 @@ end
             end
         end
     })
-    Misc1Basic:AddToggle("Free Emote", {
-        Text = "Free Emote",
+    Misc1Basic:AddToggle("Free Emotes", {
+        Text = "Free Emotes",
         Default = false,
         Callback = function(Value)
             _G.LoadingEmote = Value
@@ -6174,7 +6174,7 @@ end
                 return
             else
                 loadingNotify = true
-                Notification("You have Command /e Name Emote | /e opengui | /e cancelgui", _G.TimeNotify)
+                Notification("commands unlocked successfully. (/e Name Emote | /e opengui | /e cancelgui)", _G.TimeNotify)
             end
         end
     })
@@ -6253,10 +6253,10 @@ end
                 if workspace:FindFirstChild("TournamentIsland") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TournamentIsland.Spawns.Part.CFrame * CFrame.new(0, 2, 0)
                 else
-                    Notification("Tournament Island don't not spawn.", _G.TimeNotify)
+                    Notification("Tournament Island has not spawned yet.", _G.TimeNotify)
                 end
             else
-                Notification("you are in Tournament not equip, 1 you use it.", _G.TimeNotify)
+                Notification("you are in Tournament don't equip, or you are using it.", _G.TimeNotify)
             end
         end
     end)
@@ -6308,7 +6308,7 @@ end
     _G.SlapAuraFriend = "Fight"
     _G.SlapAuraChoose = "Normal"
     Misc1Basic:AddSlider("Reach Aura", {
-        Text = "Reach Slap Aura",
+        Text = "Reach Aura",
         Default = 25,
         Min = 10,
         Max = 50,
@@ -6322,7 +6322,7 @@ end
         Text = "Slap Aura Friend",
         Values = {
             "Fight",
-            "Not Fight"
+            "Don't Fight"
         },
         Default = "Fight",
         Multi = false,
@@ -6378,7 +6378,7 @@ end
                                             else
                                                 game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild(_G.SlapAuraCharacter))
                                             end
-                                        elseif _G.SlapAuraFriend == "Not Fight" then
+                                        elseif _G.SlapAuraFriend == "Don't Fight" then
                                             if not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
                                                 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Mace" then
                                                     gloveHits["Mace"]:FireServer(v.Character:WaitForChild(_G.SlapAuraCharacter), 200)
@@ -6474,7 +6474,7 @@ end
         Text = "Shukuchi Friend",
         Values = {
             "Fight",
-            "Not Fight"
+            "Don't Fight"
         },
         Default = "Fight",
         Multi = false,
@@ -6496,7 +6496,7 @@ end
                                     if _G.ReachShukuchi >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
                                         if _G.ShukuchiFriend == "Fight" then
                                             game:GetService("ReplicatedStorage").SM:FireServer(v)
-                                        elseif _G.ShukuchiFriend == "Not Fight" then
+                                        elseif _G.ShukuchiFriend == "Don't Fight" then
                                             if not game.Players.LocalPlayer:IsFriendsWith(v.UserId) then
                                                 game:GetService("ReplicatedStorage").SM:FireServer(v)
                                             end
@@ -6680,8 +6680,8 @@ end
             end
         end
     })
-    Misc1Basic:AddInput("Auto Change Slap", {
-        Default = "Auto Change Slap",
+    Misc1Basic:AddInput("Auto Change Slaps", {
+        Default = "Auto Change Slaps",
         Numeric = false,
         Text = "",
         Placeholder = "Change",
@@ -6690,7 +6690,7 @@ end
         end
     })
     Misc1Basic:AddToggle("SlapFake", {
-        Text = "Auto Set Slap",
+        Text = "Auto Set fake Slaps",
         Default = false,
         Callback = function(Value)
             _G.AutoChangeSlapFake = Value
@@ -6712,7 +6712,7 @@ end
         end
     })
     Misc1Basic:AddToggle("GloveFake", {
-        Text = "Auto Set Glove",
+        Text = "Auto Set Fake Glove",
         Default = false,
         Callback = function(Value)
             _G.AutoChangeSlapFake = Value
@@ -7174,11 +7174,11 @@ end
                     game.ReplicatedStorage.Errorhit:FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("Head"))
                 end
             else
-                Notification("You have in Lobby | Player [ " .. _G.PlayerPut1 .. " ] in arena, or You don't have Glitch equipped, or you have don't have 50K Slap", _G.TimeNotify)
+                Notification("You are in Lobby | Player [ " .. _G.PlayerPut1 .. " ] is in arena, or You don't have Glitch equipped, or you have don't have 50K Slap", _G.TimeNotify)
             end
         end
     end)
-    Misc3Group:AddButton("Help Player Quake", function()
+    Misc3Group:AddButton("Help Player Homerum", function()
         if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerPut1].leaderstats.Glove.Value == "Berserk" then
             game:GetService("ReplicatedStorage").HomeRun:FireServer({
                 ["start"] = true
@@ -7202,10 +7202,10 @@ end
                 ["finished"] = true
             })
         else
-            Notification("You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.", _G.TimeNotify)
+            Notification("You don't have Home Run equipped, or you have to go to lobby, or player doesn't have Berserk equipped.", _G.TimeNotify)
         end
     end)
-    Misc3Group:AddButton("Help Player Goofy", function()
+    Misc3Group:AddButton("Help Player Confusion", function()
         if game.Players.LocalPlayer.leaderstats.Glove.Value == "Confusion" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2133016756) then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
             wait(0.2)
@@ -7216,7 +7216,7 @@ end
             wait(0.2)
             game:GetService("ReplicatedStorage").GeneralHit:FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("HumanoidRootPart"))
         else
-            Notification("You don't have Confusion equipped, or you have to go lobby.", _G.TimeNotify)
+            Notification("You don't have Confusion equipped, or you have to go to lobby.", _G.TimeNotify)
         end
     end)
     Misc3Group:AddSlider("Time Help Berserk", {
@@ -7229,8 +7229,8 @@ end
             _G.TimeHelpGotIm = Value
         end
     })
-    Misc3Group:AddDropdown("Will Teleport Help", {
-        Text = "Will Teleport Help",
+    Misc3Group:AddDropdown("Teleport Help", {
+        Text = "Teleport Help",
         Values = {
             "Up To You",
             "SafeSpotBox 1.0",
@@ -7283,7 +7283,7 @@ end
                 wait(3.8)
             end
         else
-            Notification("You don't have Kinetic equipped, or you have to go Arena, or player have go to arena.", _G.TimeNotify)
+            Notification("You don't have Kinetic equipped, or you have to go to Arena, or player have to go to arena.", _G.TimeNotify)
         end
     end)
     local Glove1Group = Tabs.Tab6:AddLeftGroupbox("Glove")
@@ -7490,8 +7490,8 @@ end
             end
         end
     })
-    Glove1Group:AddToggle("Godmobe Player", {
-        Text = "Auto Godmobe Player",
+    Glove1Group:AddToggle("Godmode Player", {
+        Text = "Auto Godmode Player",
         Default = false,
         Callback = function(Value)
             if SaveThePlayer == nil then
@@ -7506,7 +7506,7 @@ end
             elseif GuardianAngelSpam == true then
                 Notification("You don't have Guardian Angel equipped.", _G.TimeNotify)
                 wait(0.05)
-                Toggles["Godmobe Player"]:SetValue(false)
+                Toggles["Godmode Player"]:SetValue(false)
             end
         end
     })
@@ -8013,7 +8013,7 @@ end
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerButton].Character.HumanoidRootPart.CFrame
             end
         else
-            Notification("You don't have Recall equipped or you haven't in arena.", _G.TimeNotify)
+            Notification("You don't have Recall equipped or you aren't in arena.", _G.TimeNotify)
         end
     end)
     Glove1Group:AddButton("Grab Player Teleport", function()
@@ -8037,7 +8037,7 @@ end
                 game.Players.LocalPlayer.Character:FindFirstChild("Grab").Parent = game.Players.LocalPlayer.Backpack
             end
         else
-            Notification("You don't have Grab equipped, or you have to go Arena, or player go to Arena", _G.TimeNotify)
+            Notification("You don't have Grab equipped, or you have to go to Arena, or player Has to go to Arena", _G.TimeNotify)
         end
     end)
     Glove1Group:AddToggle("Auto Oven Player", {
@@ -8193,7 +8193,7 @@ end
                         end
                     end
                 end
-            elseif _G.BlackHoleCre == "Teleport Cannon Island" then
+            elseif _G.BlackHoleCre == "Teleport to Cannon Island" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0, 30, 0)
                 wait(0.1)
                 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
@@ -8236,12 +8236,12 @@ end
                 end
             end
         else
-            Notification("You have in lobby, or You don't have badge bob, or badge rob.", _G.TimeNotify)
+            Notification("You are in lobby, or You don't have Bob badge, or rob badge.", _G.TimeNotify)
         end
     end)
-    Glove1Group:AddButton("Auto Enter Map Null", function()
+    Glove1Group:AddButton("Auto Enter Null map", function()
         if game.Workspace:FindFirstChild("Blackhole_Particles") == nil then
-            Notification("When will someone create a black hole [ BOB + ROB ].", _G.TimeNotify)
+            Notification("Only when someone creates a black hole [ BOB + ROB ].", _G.TimeNotify)
         elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
             game:GetService("Players").LocalPlayer.Reset:FireServer()
             wait(3.75)
@@ -8357,7 +8357,7 @@ end
                 end
             until game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("siphon_charge") == nil
         else
-            Notification("You don't have Siphon equipped or you haven't in arena.", _G.TimeNotify)
+            Notification("You don't have Siphon equipped or you aren't in arena.", _G.TimeNotify)
         end
     end)
     Glove2Group:AddButton("Ability Lure Safe", function()
@@ -8369,7 +8369,7 @@ end
             task.wait(0.15)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldTP
         else
-            Notification("You don't have Lure equipped or you haven't in arena.", _G.TimeNotify)
+            Notification("You don't have Lure equipped or you aren't in arena.", _G.TimeNotify)
         end
     end)
     Glove2Group:AddToggle("Auto Collect Ingredients", {
@@ -8406,8 +8406,8 @@ end
             end
         end
     })
-    Glove2Group:AddToggle("Infinity Pillow", {
-        Text = "Infinity Pillow",
+    Glove2Group:AddToggle("Infinite Pillow", {
+        Text = "Infinite Pillow",
         Default = false,
         Callback = function(Value)
             _G.InfinityPillow = Value
@@ -8419,7 +8419,7 @@ end
             elseif _G.InfinityPillow == true then
                 Notification("You don't have Pillow equipped", _G.TimeNotify)
                 wait(0.05)
-                Toggles["Infinity Pillow"]:SetValue(false)
+                Toggles["Infinite Pillow"]:SetValue(false)
             end
         end
     })
@@ -9184,7 +9184,7 @@ end
     end)
 elseif game.PlaceId == 11828384869 then
     local Window = Library:CreateWindow({
-        Title = "Omega X Article Hub - Maze 👁️p",
+        Title = "FrostWare - Maze 👁️",
         Center = true,
         AutoShow = true,
         Resizable = true,
@@ -9211,8 +9211,8 @@ elseif game.PlaceId == 11828384869 then
                 for i = 1, Time do
                     Time = Time - 1
                     game:GetService("StarterGui"):SetCore("SendNotification", {
-                        Title = "Error",
-                        Text = "You wait time [ " .. Time .. " ] receive.",
+                        Title = "Hold on!",
+                        Text = "You have to wait [ " .. Time .. " ] seconds to receive.",
                         Icon = "rbxassetid://7733658504",
                         Duration = 1
                     })
@@ -9241,7 +9241,7 @@ elseif game.PlaceId == 11828384869 then
             end
         end
     end)
-    Badge1:AddButton("Teleport Alchemist Plushie", function()
+    Badge1:AddButton("Teleport to Alchemist Plushie", function()
         if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
             game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
             wait(0.5)
@@ -9252,11 +9252,11 @@ elseif game.PlaceId == 11828384869 then
     end)
 elseif game.PlaceId == 13833961666 then
     local Window = Library:CreateWindow({
-        Title = "Boss Bob 💥",
+        Title = "FrostWare - Bob Boss",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -9284,7 +9284,7 @@ elseif game.PlaceId == 13833961666 then
     Script1Group:AddButton("Anti Lag", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Anti-lag.lua"))()
     end)
-    Script1Group:AddButton("Inf Yield", function()
+    Script1Group:AddButton("Infinite Yield", function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'), true))()
     end)
     Script1Group:AddButton("Executor | Ui Library", function()
@@ -9294,15 +9294,15 @@ elseif game.PlaceId == 13833961666 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
     end)
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Info")
-    CanYouFps = Misc1Group:AddLabel("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
-    CanYouPing = Misc1Group:AddLabel("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
-    TimeServer = Misc1Group:AddLabel("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-    TimeNow = Misc1Group:AddLabel("Now Time [ " .. os.date("%X") .. " ]", true)
+    CanYouFps = Misc1Group:AddLabel("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
+    CanYouPing = Misc1Group:AddLabel("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
+    TimeServer = Misc1Group:AddLabel("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
+    TimeNow = Misc1Group:AddLabel("Current time [ " .. os.date("%X") .. " ]", true)
     Health = Misc1Group:AddLabel("Health [ " .. game.Players.LocalPlayer.Character.Humanoid.Health .. " ]", true)
     if game.Workspace:FindFirstChild("BossFolder") and game.Workspace.BossFolder:FindFirstChild("Health") then
-        HealthBoss = Misc1Group:AddLabel("Health Boss [ " .. game.Workspace.BossFolder.Health.Value .. " ]", true)
+        HealthBoss = Misc1Group:AddLabel("Boss Health [ " .. game.Workspace.BossFolder.Health.Value .. " ]", true)
     else
-        HealthBoss = Misc1Group:AddLabel("Check Health Boss [ Not Started Yet ]", true)
+        HealthBoss = Misc1Group:AddLabel("Check Boss Health [ Haven't started yet ]", true)
     end
     if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
         AlarmTime = Misc1Group:AddLabel("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
@@ -9313,22 +9313,22 @@ elseif game.PlaceId == 13833961666 then
     else
         AlarmTime = Misc1Group:AddLabel("Good Night [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     end
-    AgeAccYou = Misc1Group:AddLabel("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
+    AgeAccYou = Misc1Group:AddLabel("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
     Misc1Group:AddToggle("Auto Set Info", {
         Text = "Auto Set Info",
         Default = false,
         Callback = function(Value)
             _G.InfoServerSet = Value
             while _G.InfoServerSet do
-                CanYouFps:SetText("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
-                CanYouPing:SetText("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
-                TimeServer:SetText("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-                TimeNow:SetText("Now Time [ " .. os.date("%X") .. " ]", true)
+                CanYouFps:SetText("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
+                CanYouPing:SetText("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
+                TimeServer:SetText("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
+                TimeNow:SetText("Current time [ " .. os.date("%X") .. " ]", true)
                 Health:SetText("Health [ " .. game.Players.LocalPlayer.Character.Humanoid.Health .. " ]", true)
                 if game.Workspace:FindFirstChild("BossFolder") and game.Workspace.BossFolder:FindFirstChild("Health") then
-                    HealthBoss:SetText("Health Boss [ " .. game.Workspace.BossFolder.Health.Value .. " ]", true)
+                    HealthBoss:SetText("Boss Health [ " .. game.Workspace.BossFolder.Health.Value .. " ]", true)
                 else
-                    HealthBoss:SetText("Check Health Boss [ Not Started Yet ]", true)
+                    HealthBoss:SetText("Check Boss health [ Haven't started yet ]", true)
                 end
                 if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
                     AlarmTime:SetText("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
@@ -9339,7 +9339,7 @@ elseif game.PlaceId == 13833961666 then
                 else
                     AlarmTime:SetText("Good Night [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
                 end
-                AgeAccYou:SetText("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
+                AgeAccYou:SetText("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
                 task.wait()
             end
         end
@@ -9388,8 +9388,8 @@ elseif game.PlaceId == 13833961666 then
             GloveSlap = Value
         end
     })
-    Misc2Group:AddToggle("Slap Aura Bob Mini", {
-        Text = "Slap Aura Bob Mini",
+    Misc2Group:AddToggle("Slap Aura Mini Bob", {
+        Text = "Slap Aura Mini Bob",
         Default = false,
         Callback = function(Value)
             _G.SlapBobClone = Value
@@ -9413,7 +9413,7 @@ elseif game.PlaceId == 13833961666 then
             end
         end
     })
-    Misc2Group:AddButton("Slap Aura Bob Mini", function()
+    Misc2Group:AddButton("Slap Aura Mini Bob", function()
         if game.Workspace:FindFirstChild("BobClone") then
             for _, v in pairs(workspace:GetChildren()) do
                 if v.Name == "BobClone" then
@@ -9430,7 +9430,7 @@ elseif game.PlaceId == 13833961666 then
             end
         end
     end)
-    Misc2Group:AddButton("Button Fight Rock", function()
+    Misc2Group:AddButton("Fight Rock", function()
         if game.CoreGui:FindFirstChild("SlapRock") == nil then
             local ScreenGui = Instance.new("ScreenGui")
             local Button = Instance.new("ImageButton")
@@ -9578,11 +9578,11 @@ elseif game.PlaceId == 13833961666 then
     })
 elseif game.PlaceId == 9431156611 then
     local Window = Library:CreateWindow({
-        Title = "Slap Royale 🏆",
+        Title = " FrostWare",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -9599,8 +9599,8 @@ elseif game.PlaceId == 9431156611 then
     TabBoxCombat1 = Tabs.Tab:AddLeftTabbox()
     local Combat1Group = TabBoxCombat1:AddTab("Combat")
     _G.ReachAura = 25
-    Combat1Group:AddSlider("Reach Slap", {
-        Text = "Reach Slap Aura",
+    Combat1Group:AddSlider("Reach", {
+        Text = "Reach Aura",
         Default = 25,
         Min = 10,
         Max = 50,
@@ -10229,7 +10229,7 @@ elseif game.PlaceId == 9431156611 then
     Anti1Group:AddToggle("Anti Record", {
         Text = "Anti Record",
         Default = false,
-        Tooltip = "People chat record, you get kick",
+        Tooltip = "If people record, you get kickes",
         Callback = function(Value)
             AntiRecord = Value
         end
@@ -10246,7 +10246,7 @@ elseif game.PlaceId == 9431156611 then
                 if AntiRecord == true then
                     for i, v in pairs(Words) do
                         if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-                            game.Players.LocalPlayer:Kick("Possible player recording detected." .. " [ " .. p.Name .. " ]" .. " [ " .. message .. " ]")
+                            game.Players.LocalPlayer:Kick("Player recording detected!." .. " [ " .. p.Name .. " ]" .. " [ " .. message .. " ]")
                         end
                     end
                 end
@@ -10259,7 +10259,7 @@ elseif game.PlaceId == 9431156611 then
             if AntiRecord == true then
                 for i, v in pairs(Words) do
                     if v:lower():match("recording") or v:lower():match(" rec") or v:lower():match("record") or v:lower():match("discor") or v:lower():match(" disco") or v:lower():match(" disc") or v:lower():match("ticket") or v:lower():match("tickets") or v:lower():match(" ds") or v:lower():match(" dc") or v:lower():match("dizzy") or v:lower():match("dizzycord") or v:lower():match(" clip") or v:lower():match("proof") or v:lower():match("evidence") then
-                        game.Players.LocalPlayer:Kick("Possible player recording detected." .. " [ " .. Player.Name .. " ]" .. " [ " .. message .. " ]")
+                        game.Players.LocalPlayer:Kick("Player recording detected!." .. " [ " .. Player.Name .. " ]" .. " [ " .. message .. " ]")
                     end
                 end
             end
@@ -10516,11 +10516,11 @@ elseif game.PlaceId == 9431156611 then
     })
 elseif game.PlaceId == 14422118326 then
     local Window = Library:CreateWindow({
-        Title = "Maze Null ☠️",
+        Title = "Null Maze",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -10610,7 +10610,7 @@ elseif game.PlaceId == 14422118326 then
         Mode = "Toggle",
         SyncToggleState = true
     })
-    Misc1Group:AddButton("Teleport Rob Plushie", function()
+    Misc1Group:AddButton("Teleport to Rob Plushie", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4833.31, - 214, 800.529)
         wait(1)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace._ugcQuestObjectBobPlushie.Handle.CFrame
@@ -10633,7 +10633,7 @@ elseif game.PlaceId == 14422118326 then
     })
 elseif game.PlaceId == 16034567693 then
     local Window = Library:CreateWindow({
-        Title = "Omega X Article Hub - ADMIN ROOM",
+        Title = "FrostWare - ADMIN ROOM",
         Center = true,
         AutoShow = true,
         Resizable = true,
@@ -10648,11 +10648,11 @@ elseif game.PlaceId == 16034567693 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Info")
-    CanYouFps = InfoServer1Group:AddLabel("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
-    CanYouPing = InfoServer1Group:AddLabel("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
-    ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
-    TimeServer = InfoServer1Group:AddLabel("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-    TimeNow = InfoServer1Group:AddLabel("Now Time [ " .. os.date("%X") .. " ]", true)
+    CanYouFps = InfoServer1Group:AddLabel("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
+    CanYouPing = InfoServer1Group:AddLabel("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
+    ServerPlayer = InfoServer1Group:AddLabel("Players In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
+    TimeServer = InfoServer1Group:AddLabel("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
+    TimeNow = InfoServer1Group:AddLabel("Current time [ " .. os.date("%X") .. " ]", true)
     if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
         AlarmTime = InfoServer1Group:AddLabel("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -10662,7 +10662,7 @@ elseif game.PlaceId == 16034567693 then
     else
         AlarmTime = InfoServer1Group:AddLabel("Good Night [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     end
-    AgeAccYou = InfoServer1Group:AddLabel("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
+    AgeAccYou = InfoServer1Group:AddLabel("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
     InfoServer1Group:AddToggle("Toggle Set", {
         Text = "Toggle Return",
         Default = false,
@@ -10671,11 +10671,11 @@ elseif game.PlaceId == 16034567693 then
             if _G.AutoSetInfo == true then
                 AutoSetInfoServer = game:GetService("RunService").RenderStepped:Connect(function()
                     if _G.AutoSetInfo == true then
-                        CanYouFps:SetText("Your Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
-                        CanYouPing:SetText("Your Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
-                        ServerPlayer:SetText("Player In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
-                        TimeServer:SetText("Server Time [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-                        TimeNow:SetText("Now Time [ " .. os.date("%X") .. " ]", true)
+                        CanYouFps:SetText("User Fps [ " .. math.floor(workspace:GetRealPhysicsFPS()) .. " ]", true)
+                        CanYouPing:SetText("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
+                        ServerPlayer:SetText("Players In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
+                        TimeServer:SetText("Time in Server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
+                        TimeNow:SetText("Current time[ " .. os.date("%X") .. " ]", true)
                         if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
                             AlarmTime:SetText("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
                         elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -10685,7 +10685,7 @@ elseif game.PlaceId == 16034567693 then
                         else
                             AlarmTime:SetText("Good Night [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
                         end
-                        AgeAccYou:SetText("You Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
+                        AgeAccYou:SetText("User Account Age [ " .. game.Players.LocalPlayer.AccountAge .. " ]", true)
                     end
                 end)
             end
@@ -10720,7 +10720,7 @@ elseif game.PlaceId == 16034567693 then
     end)
 elseif game.PlaceId == 17290438723 then
     local Window = Library:CreateWindow({
-        Title = "Omega X Article Hub - Frostbite Map Obby",
+        Title = "FrostWare - Frostbite Obby",
         Center = true,
         AutoShow = true,
         Resizable = true,
@@ -10735,7 +10735,7 @@ elseif game.PlaceId == 17290438723 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")
-    Misc1Group:AddButton("Teleport Badge", function()
+    Misc1Group:AddButton("Teleport to Badge", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(- 554, 177, 56)
         wait(0.7)
         for i, v in ipairs(game:GetService("Workspace"):GetDescendants()) do
@@ -10747,11 +10747,11 @@ elseif game.PlaceId == 17290438723 then
     end)
 elseif game.PlaceId == 18550498098 then
     local Window = Library:CreateWindow({
-        Title = "Boss Guide ⚔️",
+        Title = "Boss Guide",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -10806,7 +10806,7 @@ elseif game.PlaceId == 18550498098 then
             end
         end
     end)
-    Misc1Group:AddButton("Teleport Safe", function()
+    Misc1Group:AddButton("Teleport to Safe", function()
         if game.Workspace.VoidPart:FindFirstChild("Safe") then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.VoidPart.Safe.CFrame * CFrame.new(0, 25, 0)
         end
@@ -10918,8 +10918,8 @@ elseif game.PlaceId == 18550498098 then
         Mode = "Toggle",
         SyncToggleState = true
     })
-    Misc2Group:AddToggle("Fight Boss Final", {
-        Text = "Fight Boss Final",
+    Misc2Group:AddToggle("Fight Final Boss", {
+        Text = "Fight Final Boss",
         Default = false,
         Callback = function(Value)
             _G.FightBossFinal = Value
@@ -10943,9 +10943,9 @@ elseif game.PlaceId == 18550498098 then
                 task.wait()
             end
         end
-    }):AddKeyPicker("FightBossFinal", {
+    }):AddKeyPicker("FightFinalBoss", {
         Default = "V",
-        Text = "Fight Boss Final",
+        Text = "Fight Final Boss",
         Mode = "Toggle",
         SyncToggleState = true
     })
@@ -11190,11 +11190,11 @@ elseif game.PlaceId == 18550498098 then
     })
 elseif game.PlaceId == 7234087065 then
     local Window = Library:CreateWindow({
-        Title = "Lobby OOG 🐕",
+        Title = "OGG Lobby",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11206,7 +11206,7 @@ elseif game.PlaceId == 7234087065 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Prepare")
-    Misc1Group:AddButton("Teleport Pablo", function()
+    Misc1Group:AddButton("Teleport to Pablo", function()
         if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0, 0, 5)
             wait(0.4)
@@ -11217,7 +11217,7 @@ elseif game.PlaceId == 7234087065 then
             end
         end
     end)
-    Misc1Group:AddButton("Teleport Key", function()
+    Misc1Group:AddButton("Teleport to Key", function()
         if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
             wait(0.35)
@@ -11260,7 +11260,7 @@ elseif game.PlaceId == 7234087065 then
             end
         end
     end)
-    Misc1Group:AddButton("Teleport Event Area", function()
+    Misc1Group:AddButton("Teleport to Event Area", function()
         for i, v in ipairs(workspace.Signs:GetChildren()) do
             if v.Name == "Sign" and v:FindFirstChild("Text") and v.Text:FindFirstChild("ClickDetector") then
                 if fireclickdetector then
@@ -11272,7 +11272,7 @@ elseif game.PlaceId == 7234087065 then
             end
         end
     end)
-    Misc1Group:AddButton("Teleport Designer Roblox", function()
+    Misc1Group:AddButton("Teleport to Roblox Designer", function()
         repeat
             task.wait()
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(249, 94, - 62841)
@@ -11284,8 +11284,8 @@ elseif game.PlaceId == 7234087065 then
             end
         end
     end)
-    Misc1Group:AddToggle("Auto Tp Clock", {
-        Text = "Auto Teleport Clock",
+    Misc1Group:AddToggle("Auto tp to Clock", {
+        Text = "Auto Teleport to Clock",
         Default = false,
         Callback = function(Value)
             _G.AutoTPClock = Value
@@ -11301,11 +11301,11 @@ elseif game.PlaceId == 7234087065 then
     })
 elseif game.PlaceId == 74169485398268 then
     local Window = Library:CreateWindow({
-        Title = "Maze Bind 👁️‍🗨️",
+        Title = "Bind Maze",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "BY FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11317,7 +11317,7 @@ elseif game.PlaceId == 74169485398268 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Get / Teleport")
-    Misc1Group:AddButton("Teleport Glove", function()
+    Misc1Group:AddButton("Teleport to Glove", function()
         if fireclickdetector then
             if game.Workspace:FindFirstChild("Orb") then
                 fireclickdetector(game.Workspace.Orb.ClickDetector, 0)
@@ -11331,11 +11331,11 @@ elseif game.PlaceId == 74169485398268 then
     end)
 elseif game.PlaceId == 102908326578005 then
     local Window = Library:CreateWindow({
-        Title = "OOG Home Jorgis 🏠",
+        Title = "OOG Jorgis Home",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11371,16 +11371,16 @@ elseif game.PlaceId == 102908326578005 then
             end
         end
     end)
-    Misc1Group:AddButton("Teleport Door", function()
+    Misc1Group:AddButton("Teleport to Door", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Furniture.finalDoor.Base.Base.CFrame
     end)
 elseif game.PlaceId == 115782629143468 then
     local Window = Library:CreateWindow({
-        Title = "TOH 🪜",
+        Title = "TOH",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11392,16 +11392,16 @@ elseif game.PlaceId == 115782629143468 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")
-    Misc1Group:AddButton("Teleport Badge", function()
+    Misc1Group:AddButton("Teleport to Badge", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(- 31, 187, 0)
     end)
 elseif game.PlaceId == 92516899071319 then
     local Window = Library:CreateWindow({
-        Title = "Map Dreams 💤",
+        Title = "Dreams Map",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11437,7 +11437,7 @@ elseif game.PlaceId == 118650724506449 then
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11449,16 +11449,16 @@ elseif game.PlaceId == 118650724506449 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc2Group = Tabs.Tab:AddLeftGroupbox("Badge")
-    Misc2Group:AddButton("Teleport Badge", function()
+    Misc2Group:AddButton("Teleport to Badge", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.rooms["room exit"].EXIT.CFrame
     end)
 elseif game.PlaceId == 97220865182663 then
     local Window = Library:CreateWindow({
-        Title = "Boss Mouse 🐀",
+        Title = "Mouse Boss",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11473,7 +11473,7 @@ elseif game.PlaceId == 97220865182663 then
         ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
     }
     local Misc1Group = Tabs.Tab:AddLeftGroupbox("Badge")
-    Misc1Group:AddButton("Get Glove 3000 Orb", function()
+    Misc1Group:AddButton("Get 3000 Orb", function()
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UnlockGloveWithOrbs"):FireServer()
     end)
     Misc1Group:AddToggle("Auto Slap Rat", {
@@ -11517,11 +11517,11 @@ elseif game.PlaceId == 97220865182663 then
     })
 elseif game.PlaceId == 98726100529621 then
     local Window = Library:CreateWindow({
-        Title = "Map Obby Hexa 🔰",
+        Title = "Hexa Obby Map,
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11570,11 +11570,11 @@ elseif game.PlaceId == 98726100529621 then
     end)
 elseif game.PlaceId == 136005148166028 then
     local Window = Library:CreateWindow({
-        Title = "Map Designer Roblox 🛠️",
+        Title = "Roblox Designer Map.",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11683,11 +11683,11 @@ elseif game.PlaceId == 136005148166028 then
     end)
 elseif game.PlaceId == 117232463555132 then
     local Window = Library:CreateWindow({
-        Title = "Map Retro Boss ⚔️",
+        Title = "Retro Boss Map.",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11747,11 +11747,11 @@ elseif game.PlaceId == 117232463555132 then
     end)
 elseif game.PlaceId == 132277598079047 then
     local Window = Library:CreateWindow({
-        Title = "Nightmade Slender 🌑",
+        Title = "Slender Nightmare.",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11778,11 +11778,11 @@ elseif game.PlaceId == 132277598079047 then
     end)
 elseif game.PlaceId == 129665246576996 then
     local Window = Library:CreateWindow({
-        Title = "Map Egger 🥚",
+        Title = "Egger map",
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "By FWSD Team",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -11825,7 +11825,7 @@ elseif game.PlaceId == 136690395520488 then
         Center = true,
         AutoShow = true,
         Resizable = true,
-        Footer = "Omega X Article Hub Version: 1.0.5",
+        Footer = "by FWSD Team.",
         Icon = 83462777349222,
         ShowCustomCursor = true,
         NotifySide = "Right",
@@ -12029,20 +12029,20 @@ MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
     NoUI = true,
     Text = "Menu keybind"
 })
-_G.LinkJoin = loadstring(game:HttpGet("https://pastefy.app/2LKQlhQM/raw"))()
-MenuGroup:AddButton("Copy Link Discord", function()
+_G.LinkJoin = loadstring(game:HttpGet("https://pastefy.app/cE9LGAFu/raw"))()
+MenuGroup:AddButton("Copy Discord Link", function()
     if setclipboard then
         setclipboard(_G.LinkJoin["Discord"])
         Library:Notify("Copied discord link to clipboard!")
     else
         Library:Notify("Discord link: " .. _G.LinkJoin["Discord"], 10)
     end
-end):AddButton("Copy Link Zalo", function()
+end):AddButton("Copy website link", function()
     if setclipboard then
-        setclipboard(_G.LinkJoin["Zalo"])
-        Library:Notify("Copied Zalo link to clipboard!")
+        setclipboard(_G.LinkJoin["Website"])
+        Library:Notify("Copied Website link to clipboard!")
     else
-        Library:Notify("Zalo link: " .. _G.LinkJoin["Zalo"], 10)
+        Library:Notify("Website link: " .. _G.LinkJoin["Website"], 10)
     end
 end)
 MenuGroup:AddButton("Unload", function()
@@ -12059,7 +12059,7 @@ Info:AddDivider()
 Info:AddButton("Copy JobId", function()
     if setclipboard then
         setclipboard(tostring(game.JobId))
-        Library:Notify("Copied Success")
+        Library:Notify("Copied Successfully")
     else
         Library:Notify(tostring(game.JobId), 10)
     end
