@@ -699,7 +699,7 @@ if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 1
     CanYouPing = InfoServer1Group:AddLabel("User Ping [ " .. game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString() .. " ]", true)
     ServerPlayer = InfoServer1Group:AddLabel("Players In Server [ " .. # game.Players:GetPlayers() .. " / " .. game.Players.MaxPlayers .. " ]", true)
     TimeServer = InfoServer1Group:AddLabel("Time in server [ " .. math.floor(workspace.DistributedGameTime / 60 / 60) .. " Hour | " .. math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60) .. " Minute | " .. math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60) .. " Second ]", true)
-    TimeNow = InfoServer1Group:AddLabel("User Time [ " .. os.date("%X") .. " ]", true)
+    TimeNow = InfoServer1Group:AddLabel("Current time [ " .. os.date("%X") .. " ]", true)
     if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
         AlarmTime = InfoServer1Group:AddLabel("Good Morning [ " .. tonumber(os.date("%H")) .. " Hour ]", true)
     elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -9211,7 +9211,7 @@ elseif game.PlaceId == 11828384869 then
                 for i = 1, Time do
                     Time = Time - 1
                     game:GetService("StarterGui"):SetCore("SendNotification", {
-                        Title = "Hold on!",
+                        Title = "Error",
                         Text = "You have to wait [ " .. Time .. " ] seconds to receive.",
                         Icon = "rbxassetid://7733658504",
                         Duration = 1
