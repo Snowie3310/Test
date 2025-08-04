@@ -1,0 +1,1330 @@
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local LocalPlayer = Players.LocalPlayer
+
+local RequestFunction = (syn and syn.request) or (http and http.request) or (http_request) or (fluxus and fluxus.request) or (krnl and krnl.request) or request
+
+local webhookURL = "https://discord.com/api/webhooks/1365961639576207390/QavuYE4Tz8gdxV0GEZSwefXLb0369-0lcJJEM0q7wYbolF86_57aeisbjxYveRZ69FQr"
+
+local function DetectExecutor()
+    if identifyexecutor then
+        return identifyexecutor()
+    elseif syn then
+        return "Synapse X"
+    elseif KRNL_LOADED then
+        return "KRNL"
+    elseif isfluxus then
+        return "Fluxus"
+    elseif getexecutorname then
+        return getexecutorname()
+    else
+        return "Unknown"
+    end
+end
+
+local executorName = DetectExecutor()
+
+local success, gameInfo = pcall(function()
+    return MarketplaceService:GetProductInfo(game.PlaceId)
+end)
+local gameName = success and gameInfo.Name or "Unknown Game"
+
+local embed = {
+    ["title"] = "Script Executed",
+    ["color"] = 65280, 
+    ["fields"] = {
+        {
+            ["name"] = "Username",
+            ["value"] = LocalPlayer.Name,
+            ["inline"] = true
+        },
+        {
+            ["name"] = "UserId",
+            ["value"] = tostring(LocalPlayer.UserId),
+            ["inline"] = true
+        },
+        {
+            ["name"] = "Executor",
+            ["value"] = executorName,
+            ["inline"] = true
+        },
+        {
+            ["name"] = "Game Name",
+            ["value"] = gameName,
+            ["inline"] = false
+        },
+        {
+            ["name"] = "Players In Server",
+            ["value"] = tostring(#Players:GetPlayers()),
+            ["inline"] = true
+        },
+        {
+            ["name"] = "Join Them",
+            ["value"] = "```lua\ngame:GetService('TeleportService'):TeleportToPlaceInstance("..game.PlaceId..", '"..game.JobId.."')\n```",
+            ["inline"] = false
+        }
+    },
+    ["footer"] = {
+        ["text"] = "Murder Mystery 2 Script",
+    },
+    ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+}
+
+local payload = HttpService:JSONEncode({
+    ["content"] = "",
+    ["embeds"] = {embed}
+})
+
+pcall(function()
+    RequestFunction({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = payload
+    })
+end)
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+Name = "Frostware | MM2",
+Icon = 0,
+LoadingTitle = "Please Wait.",
+LoadingSubtitle = "by FWSD Team",
+Theme = "DarkBlue",
+DisableRayfieldPrompts = false,
+DisableBuildWarnings = false,
+ConfigurationSaving = {
+Enabled = true,
+FolderName = nil,
+FileName = "FWSD"
+},
+Discord = {
+Enabled = true,
+Invite = "getfrost",
+RememberJoins = true
+},
+KeySystem = false,
+KeySettings = {
+Title = "Untitled",
+Subtitle = "Key System",
+Note = "No method of obtaining the key is provided",
+FileName = "Key",
+SaveKey = true,
+GrabKeyFromSite = false,
+Key = {"Hello"}
+}
+})
+
+local Tab = Window:CreateTab("Combat", 4483362458)
+local Tab1 = Window:CreateTab("Visuals", 4483362458)
+local Tab2 = Window:CreateTab("Teleports", 4483362458)
+local Tab3 = Window:CreateTab("Miscellaneous", 4483362458)
+local Tab4 = Window:CreateTab("Credits", 4483362458)
+local Section = Tab:CreateSection("Sheriff")
+local Section = Tab3:CreateSection("Auto")
+local function grabGun()
+local root = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+if not root then return end
+
+local originalPos = root.CFrame  
+for _, part in ipairs(game.Workspace:GetDescendants()) do  
+    if part:IsA("Part") and part.Name == "GunDrop" then  
+        root.CFrame = part.CFrame + Vector3.new(0, 3, 0)  
+        task.wait(0.01)  
+        root.CFrame = originalPos  
+        break  
+    end  
+end
+
+end
+
+Tab:CreateButton({
+Name = "Grab Gun",
+Callback = grabGun
+})
+Tab:CreateButton({
+    Name = "Shoot Murderer",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local roleTable = {}
+
+        local function getMurderer()
+            for name, info in pairs(roleTable) do
+                if info.Role == "Murderer" then
+                    local plr = Players:FindFirstChild(name)
+                    if plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                        return plr, plr.Character.HumanoidRootPart
+                    end
+                end
+            end
+        end
+
+        local function getPredictedPosition(hrp)
+    local velocity = hrp.Velocity
+
+    local maxSpeed = 80
+    if velocity.Magnitude > maxSpeed then
+        velocity = velocity.Unit * maxSpeed
+    end
+
+    local predictionTime = 0.3
+    local predictedOffset = velocity * predictionTime
+    return hrp.Position + predictedOffset
+end
+
+        local success, data = pcall(function()
+            return game:GetService("ReplicatedStorage"):FindFirstChild("GetPlayerData", true):InvokeServer()
+        end)
+        if success and data then roleTable = data end
+
+        local gun = LocalPlayer.Backpack:FindFirstChild("Gun")
+        if gun then gun.Parent = LocalPlayer.Character end
+
+        local tool = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Gun")
+        local remote = tool and tool:FindFirstChild("KnifeLocal") and tool.KnifeLocal:FindFirstChild("CreateBeam") and tool.KnifeLocal.CreateBeam:FindFirstChild("RemoteFunction")
+
+        local _, hrp = getMurderer()
+        if remote and hrp then
+            remote:InvokeServer(1, getPredictedPosition(hrp), "AH2")
+        end
+    end,
+})
+
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+local LocalPlayer = Players.LocalPlayer
+
+local ESPEnabled = false
+local ESPInstances = {}
+local RoleData = {}
+
+local function getRoles()
+    local success, data = pcall(function()
+        return ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+    end)
+    if success and data then
+        RoleData = data
+    end
+end
+
+local function getColorByRole(role)
+    if role == "Murderer" then
+        return Color3.fromRGB(255, 0, 0)
+    elseif role == "Sheriff" then
+        return Color3.fromRGB(0, 170, 255)
+    elseif role == "Hero" then
+        return Color3.fromRGB(255, 255, 0)
+    else
+        return Color3.fromRGB(0, 255, 0)
+    end
+end
+
+local function createOrUpdateESP(player)
+    if player == LocalPlayer then return end
+    if not player.Character or not player.Character:FindFirstChild("Head") or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+
+    local roleInfo = RoleData[player.Name]
+    local role = roleInfo and roleInfo.Role or "None"
+
+    local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid and humanoid.Health <= 0 then
+        role = "None"
+    end
+
+    local color = getColorByRole(role)
+    local char = player.Character
+    local head = char.Head
+
+    if not ESPInstances[player] then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "RoleESP"
+        highlight.FillTransparency = 0.5
+        highlight.OutlineTransparency = 0
+        highlight.Adornee = char
+        highlight.Parent = char
+
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "ESPLabel"
+        billboard.Adornee = head
+        billboard.Size = UDim2.new(0, 100, 0, 30)
+        billboard.StudsOffset = Vector3.new(0, 2, 0)
+        billboard.AlwaysOnTop = true
+        billboard.Parent = head
+
+        local text = Instance.new("TextLabel")
+        text.Size = UDim2.new(1, 0, 1, 0)
+        text.BackgroundTransparency = 1
+        text.TextStrokeTransparency = 0.5
+        text.TextScaled = true
+        text.Font = Enum.Font.SourceSansBold
+        text.Parent = billboard
+
+        ESPInstances[player] = {
+            Highlight = highlight,
+            Billboard = billboard,
+            Text = text,
+        }
+    end
+
+    local espData = ESPInstances[player]
+    if espData.Highlight then
+        espData.Highlight.FillColor = color
+    end
+    if espData.Text then
+        espData.Text.Text = player.Name .. " (" .. role .. ")"
+        espData.Text.TextColor3 = color
+    end
+end
+
+local function clearAllESP()
+    for player, esp in pairs(ESPInstances) do
+        if esp.Highlight then esp.Highlight:Destroy() end
+        if esp.Billboard then esp.Billboard:Destroy() end
+    end
+    table.clear(ESPInstances)
+end
+
+local function setupPlayer(player)
+    player.CharacterAdded:Connect(function()
+        task.wait(0.1)
+        if ESPEnabled then
+            createOrUpdateESP(player)
+        end
+    end)
+
+    if player.Character then
+        createOrUpdateESP(player)
+    end
+end
+
+local function startESP()
+    getRoles()
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            setupPlayer(player)
+        end
+    end
+
+    Players.PlayerAdded:Connect(function(player)
+        setupPlayer(player)
+    end)
+
+    task.spawn(function()
+        while ESPEnabled do
+            getRoles()
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    createOrUpdateESP(player)
+                end
+            end
+            task.wait(1)
+        end
+    end)
+end
+
+Remotes.Gameplay.RoundStart.OnClientEvent:Connect(function()
+    if ESPEnabled then
+        clearAllESP()
+        RoleData = {}
+        getRoles()
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                setupPlayer(player)
+            end
+        end
+    end
+end)
+
+Tab1:CreateSection("ESP")
+Tab1:CreateToggle({
+    Name = "Outline All Player",
+    CurrentValue = false,
+    Callback = function(state)
+        ESPEnabled = state
+        if state then
+            startESP()
+        else
+            clearAllESP()
+        end
+    end
+})
+
+--------------------
+
+--------------------
+local gunESPEnabled = false
+local gunESPInstance = {
+    Highlight = nil,
+    Billboard = nil,
+    Part = nil,
+}
+
+local function createOrUpdateGunESP(gunPart)
+    if not gunPart or not gunPart:IsA("Part") then return end
+
+    if not gunESPInstance.Highlight then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "GunDropESP"
+        highlight.FillColor = Color3.fromRGB(255, 255, 0)
+        highlight.FillTransparency = 0.3
+        highlight.OutlineColor = Color3.fromRGB(255, 255, 0)
+        highlight.OutlineTransparency = 0
+        highlight.Parent = gunPart
+        gunESPInstance.Highlight = highlight
+    end
+
+    if not gunESPInstance.Billboard then
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "GunDropLabel"
+        billboard.Size = UDim2.new(0, 100, 0, 30)
+        billboard.StudsOffset = Vector3.new(0, 2, 0)
+        billboard.AlwaysOnTop = true
+        billboard.Parent = gunPart
+
+        local text = Instance.new("TextLabel")
+        text.Size = UDim2.new(1, 0, 1, 0)
+        text.BackgroundTransparency = 1
+        text.Text = "Dropped Gun"
+        text.TextStrokeTransparency = 0.5
+        text.TextColor3 = Color3.fromRGB(255, 255, 0)
+        text.TextScaled = true
+        text.Font = Enum.Font.SourceSansBold
+        text.Parent = billboard
+
+        gunESPInstance.Billboard = billboard
+    end
+
+    if gunESPInstance.Part ~= gunPart then
+        gunESPInstance.Highlight.Adornee = gunPart
+        gunESPInstance.Highlight.Parent = gunPart
+        gunESPInstance.Billboard.Adornee = gunPart
+        gunESPInstance.Billboard.Parent = gunPart
+        gunESPInstance.Part = gunPart
+    end
+end
+
+local function removeGunESP()
+    if gunESPInstance.Highlight then
+        gunESPInstance.Highlight:Destroy()
+    end
+    if gunESPInstance.Billboard then
+        gunESPInstance.Billboard:Destroy()
+    end
+    gunESPInstance.Highlight = nil
+    gunESPInstance.Billboard = nil
+    gunESPInstance.Part = nil
+end
+
+local function findGunDrop()
+    for _, model in ipairs(workspace:GetChildren()) do
+        if model:IsA("Model") and model:FindFirstChild("GunDrop") then
+            return model:FindFirstChild("GunDrop")
+        end
+    end
+end
+
+task.spawn(function()
+    while true do
+        if gunESPEnabled then
+            local gun = findGunDrop()
+            if gun then
+                createOrUpdateGunESP(gun)
+            else
+                removeGunESP()
+            end
+        end
+        task.wait(1)
+    end
+end)
+
+Tab1:CreateToggle({
+    Name = "Dropped Gun ESP",
+    CurrentValue = false,
+    Callback = function(state)
+        gunESPEnabled = state
+        if not state then
+            removeGunESP()
+        end
+    end
+})
+
+
+local function createShootButton()
+    local hui = gethui and gethui() or game:GetService("CoreGui")
+    if screenGui then screenGui:Destroy() end
+
+    screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "Frostware | MM2"
+    screenGui.ResetOnSpawn = false
+    screenGui.IgnoreGuiInset = true
+    screenGui.Parent = hui
+
+    shootButton = Instance.new("TextButton")
+    shootButton.Size = UDim2.new(0, 300, 0, 100)
+    shootButton.Position = UDim2.new(0.5, -150, 0.8, 0)
+    shootButton.Text = "Shoot Murderer"
+    shootButton.BackgroundTransparency = 1
+    shootButton.TextColor3 = Color3.new(1, 1, 1)
+    shootButton.Font = Enum.Font.GothamBold
+    shootButton.TextSize = 24
+    shootButton.Draggable = true
+    shootButton.Active = true
+    shootButton.Parent = screenGui
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = shootButton
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 2
+    stroke.Color = Color3.fromRGB(0, 120, 170)
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    stroke.Parent = shootButton
+
+    shootButton.MouseButton1Click:Connect(function()
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+
+        local function getMurderer(data)
+            for name, info in pairs(data) do
+                if info.Role == "Murderer" then
+                    local plr = Players:FindFirstChild(name)
+                    if plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                        return plr, plr.Character.HumanoidRootPart
+                    end
+                end
+            end
+        end
+
+        local function getPredictedPosition(hrp)
+    local velocity = hrp.Velocity
+
+    local maxSpeed = 80
+    if velocity.Magnitude > maxSpeed then
+        velocity = velocity.Unit * maxSpeed
+    end
+
+    local predictionTime = 0.3
+    local predictedOffset = velocity * predictionTime
+    return hrp.Position + predictedOffset
+end
+
+        local success, data = pcall(function()
+            return ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+        end)
+
+        if success and data then
+            local gun = LocalPlayer.Backpack:FindFirstChild("Gun")
+            if gun then gun.Parent = LocalPlayer.Character end
+
+            local tool = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Gun")
+            local remote = tool and tool:FindFirstChild("KnifeLocal") and tool.KnifeLocal:FindFirstChild("CreateBeam") and tool.KnifeLocal.CreateBeam:FindFirstChild("RemoteFunction")
+
+            local _, hrp = getMurderer(data)
+            if remote and hrp then
+                remote:InvokeServer(1, getPredictedPosition(hrp), "AH2")
+            end
+        end
+    end)
+end
+
+Tab:CreateToggle({
+    Name = "Shoot Murderer Button",
+    CurrentValue = false,
+    Callback = function(state)
+        if state then
+            createShootButton()
+        elseif screenGui then
+            screenGui:Destroy()
+            screenGui, shootButton = nil, nil
+        end
+    end,
+})
+
+local Button = Tab2:CreateButton({
+   Name = "Teleport to Lobby",
+   Callback = function()
+      local function teleportToSpawn()
+         local spawnPoint = workspace:WaitForChild("Lobby")
+            :WaitForChild("Lobby")
+            :WaitForChild("Spawns")
+            :WaitForChild("Spawn")
+
+         local player = game.Players.LocalPlayer
+         local character = player.Character or player.CharacterAdded:Wait()
+         local hrp = character:WaitForChild("HumanoidRootPart")
+
+         hrp.CFrame = spawnPoint.CFrame + Vector3.new(0, 5, 0)
+      end
+
+      teleportToSpawn()
+   end
+})
+
+local function teleportToMapSpawn()
+	local map = nil
+	for _, v in pairs(workspace:GetChildren()) do
+		if v:FindFirstChild("Spawns") and v.Spawns:FindFirstChild("Spawn") then
+			map = v
+			break
+		end
+	end
+
+	if map then
+		local spawnPoint = map.Spawns.Spawn
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local hrp = character:WaitForChild("HumanoidRootPart")
+
+		hrp.CFrame = spawnPoint.CFrame + Vector3.new(0, 5, 0)
+	else
+		warn("Game Not Started.")
+	end
+end
+
+local Button = Tab2:CreateButton({
+   Name = "Teleport to Map",
+   Callback = teleportToMapSpawn
+})
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function teleportToPlayer(target)
+	local localChar = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+	local targetChar = target.Character
+
+	if localChar and targetChar and targetChar:FindFirstChild("HumanoidRootPart") then
+		local myHRP = localChar:WaitForChild("HumanoidRootPart")
+		local targetHRP = targetChar:FindFirstChild("HumanoidRootPart")
+		myHRP.CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0)
+	end
+end
+
+local function onPlayerHasGun(player)
+	teleportToPlayer(player)
+end
+
+local function onPlayerHasKnife(player)
+	teleportToPlayer(player)
+end
+
+local function CheckForGun(callback)
+	for _, player in pairs(Players:GetPlayers()) do
+		local backpack = player:FindFirstChild("Backpack")
+		if backpack and backpack:FindFirstChild("Gun") then
+			callback(player)
+		end
+	end
+end
+
+local function CheckForKnife(callback)
+    for _, player in pairs(Players:GetPlayers()) do
+        local character = player.Character
+        local backpack = player:FindFirstChild("Backpack")
+
+        local knifeEquipped = character and character:FindFirstChild("Knife")
+        local knifeInBackpack = backpack and backpack:FindFirstChild("Knife")
+
+        if (knifeEquipped or knifeInBackpack) then
+            callback(player)
+        end
+    end
+end
+
+Tab2:CreateButton({
+	Name = "Teleport to Sheriff/Hero",
+	Callback = function()
+		CheckForGun(onPlayerHasGun)
+	end
+})
+
+Tab2:CreateButton({
+	Name = "Teleport to Murderer",
+	Callback = function()
+		CheckForKnife(onPlayerHasKnife)
+	end
+})
+local Input = Tab2:CreateInput({
+    Name = "Teleport to Player",
+    CurrentValue = "",
+    PlaceholderText = "Enter player name...",
+    RemoveTextAfterFocusLost = false,
+    Flag = "TeleportInput",
+    Callback = function(Text)
+        local lowerText = Text:lower()
+
+        local closestPlayer = nil
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                local playerName = player.Name:lower()
+                if playerName:sub(1, #lowerText) == lowerText then
+                    closestPlayer = player
+                    break
+                end
+            end
+        end
+
+        if closestPlayer then
+            teleportToPlayer(closestPlayer)
+        else
+            warn("No matching player found!")
+        end
+    end,
+})
+
+local grabGunButton
+
+local function createGrabGunButton()
+    if grabGunButton then return end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "MakalHubGrabGunGui"
+    screenGui.ResetOnSpawn = false
+    screenGui.IgnoreGuiInset = true
+    screenGui.Parent = gethui()
+
+    grabGunButton = Instance.new("TextButton")
+    grabGunButton.Size = UDim2.new(0, 70, 0, 70)
+    grabGunButton.Position = UDim2.new(0.5, -35, 0.9, 0)
+    grabGunButton.Text = "Grab\nGun"
+    grabGunButton.BackgroundTransparency = 1
+    grabGunButton.TextColor3 = Color3.new(1, 1, 1)
+    grabGunButton.Font = Enum.Font.GothamBold
+    grabGunButton.TextSize = 12
+    grabGunButton.TextWrapped = true
+    grabGunButton.Draggable = true
+    grabGunButton.Active = true
+    grabGunButton.Parent = screenGui
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(1, 0)
+    corner.Parent = grabGunButton
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 2
+    stroke.Color = Color3.fromRGB(0, 120, 170)
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    stroke.Parent = grabGunButton
+
+    grabGunButton.MouseButton1Click:Connect(function()
+    local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not root then return end
+
+    local originalPos = root.CFrame
+    for _, part in ipairs(Workspace:GetDescendants()) do
+        if part:IsA("Part") and part.Name == "GunDrop" then
+            root.CFrame = part.CFrame + Vector3.new(0, 3, 0)
+            task.wait(0.01)
+            root.CFrame = originalPos
+            break
+        end
+    end
+   end
+ )
+end
+
+local Toggle = Tab:CreateToggle({
+    Name = "Grab Gun Button",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+        if state then
+            createGrabGunButton()
+        else if grabGunButton then
+                grabGunButton:Destroy()
+                grabGunButton = nil
+            end
+        end
+    end
+})
+
+local function notifyGunDrop()
+    Rayfield:Notify({
+        Title = "ATTENTION!",
+        Content = "GUN HAS BEEN DROPPED!",
+        Duration = 2.1,
+        Image = 4483362458, 
+    })
+end
+
+local function onMapAdded(map)
+    if map:IsA("Model") then
+        if map:FindFirstChild("GunDrop") then
+            notifyGunDrop()
+        end
+        map.ChildAdded:Connect(function(child)
+            if child.Name == "GunDrop" then
+                notifyGunDrop()
+            end
+        end)
+    end
+end
+
+local function startGunDropDetection()
+    game:GetService("Workspace").ChildAdded:Connect(onMapAdded)
+    for _, obj in pairs(game:GetService("Workspace"):GetChildren()) do
+        onMapAdded(obj)
+    end
+end
+
+local function stopGunDropDetection()
+end
+
+local function toggleGunDropDetection(state)
+    if state then
+        startGunDropDetection()
+    else
+        stopGunDropDetection()
+    end
+end
+
+local Toggle = Tab3:CreateToggle({
+    Name = "Enable Gun Drop Notification",
+    CurrentValue = false,
+    Flag = "GunDropNotification",
+    Callback = function(state)
+        toggleGunDropDetection(state)
+    end
+})
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+
+local listening = false
+local checkedPlayers = {}
+local GetPlayerData = ReplicatedStorage:FindFirstChild("GetPlayerData", true)
+
+local function notifyRole(playerName, role)
+    local imageId
+    if role == "Murderer" then
+        imageId = 3576051114
+    elseif role == "Sheriff" then
+        imageId = 14230144465
+    else
+        return
+    end
+
+    Rayfield:Notify({
+        Title = role .. "!",
+        Content = playerName .. " is the " .. role .. "!",
+        Duration = 2,
+        Image = imageId,
+    })
+end
+
+local function scanPlayers()
+    if not GetPlayerData then return end
+
+    local success, data = pcall(function()
+        return GetPlayerData:InvokeServer()
+    end)
+
+    if success and data then
+        for playerName, info in pairs(data) do
+            local role = info.Role
+            if role == "Murderer" or role == "Sheriff" then
+                if not checkedPlayers[playerName] then
+                    checkedPlayers[playerName] = true
+                    notifyRole(playerName, role)
+                end
+            end
+        end
+    end
+end
+
+local function startListening()
+    listening = true
+    checkedPlayers = {}
+    while listening do
+        task.wait(1)
+        scanPlayers()
+    end
+end
+
+local function stopListening()
+    listening = false
+end
+
+local RoundStart = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Gameplay"):WaitForChild("RoundStart")
+RoundStart.OnClientEvent:Connect(function()
+    if listening then
+        checkedPlayers = {}
+        scanPlayers()
+    end
+end)
+
+Tab3:CreateToggle({
+    Name = "Auto Detect Sheriff & Murderer",
+    CurrentValue = false,
+    Flag = "DetectRoles",
+    Callback = function(state)
+        if state then
+            startListening()
+        else
+            stopListening()
+        end
+    end,
+})
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+
+local listening = false
+local checkedPlayers = {}
+local GetPlayerData = ReplicatedStorage:FindFirstChild("GetPlayerData", true)
+
+local function notifyRole(playerName, role)
+    local imageId
+    if role == "Murderer" then
+        imageId = 3576051114
+    elseif role == "Sheriff" then
+        imageId = 14230144465
+    else
+        return
+    end
+
+    Rayfield:Notify({
+        Title = role .. "!",
+        Content = playerName .. " is the " .. role .. "!",
+        Duration = 2,
+        Image = imageId,
+    })
+end
+
+local function scanPlayers()
+    if not GetPlayerData then return end
+
+    local success, data = pcall(function()
+        return GetPlayerData:InvokeServer()
+    end)
+
+    if success and data then
+        for playerName, info in pairs(data) do
+            local role = info.Role
+            if role == "Murderer" or role == "Sheriff" then
+                if not checkedPlayers[playerName] then
+                    checkedPlayers[playerName] = true
+                    notifyRole(playerName, role)
+                end
+            end
+        end
+    end
+end
+
+local function startNotifier()
+    listening = true
+    checkedPlayers = {}
+    while listening do
+        task.wait(1)
+        scanPlayers()
+    end
+end
+
+local function stopNotifier()
+    listening = false
+end
+
+local function resetNotifier()
+    checkedPlayers = {}
+end
+
+local RoundStart = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Gameplay"):WaitForChild("RoundStart")
+RoundStart.OnClientEvent:Connect(function()
+    if listening then
+        resetNotifier()
+        scanPlayers()
+    end
+end)
+
+local function notifyPlayers()
+    if not GetPlayerData then return end
+
+    local success, data = pcall(function()
+        return GetPlayerData:InvokeServer()
+    end)
+
+    if success and data then
+        for playerName, info in pairs(data) do
+            local role = info.Role
+            if role == "Murderer" or role == "Sheriff" then
+                notifyRole(playerName, role)
+            end
+        end
+    end
+end
+
+Tab3:CreateButton({
+    Name = "Notify Sheriff & Murderer",
+    Callback = function()
+        notifyPlayers()
+    end,
+})
+
+local Paragraph = Tab4:CreateParagraph({Title = "Made By:", Content = "Xynnn. Join FrostWare For Updates!"})
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+
+local localPlayer = Players.LocalPlayer
+local gunListener = nil
+local mapListener = nil
+local grabbedGuns = {}
+
+local function isMurderer(player)
+    local playerData = ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer(player)
+    return playerData and playerData.Role == "Murderer"
+end
+
+local function isMurdererNear(gunDrop)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= localPlayer and player.Character and isMurderer(player) then
+            local characterRoot = player.Character:FindFirstChild("HumanoidRootPart")
+            if characterRoot then
+                local distance = (characterRoot.Position - gunDrop.Position).Magnitude
+                if distance <= 3 then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+local function teleportToGun(gunDrop)
+    local root = localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not root then return end
+
+    local originalPos = root.CFrame
+
+    root.CFrame = gunDrop.CFrame + Vector3.new(0, 3, 0)
+    task.wait(0.01)
+    root.CFrame = originalPos
+end
+
+local function listenForGunDrop(map)
+    if gunListener then
+        gunListener:Disconnect()
+    end
+
+    gunListener = map.ChildAdded:Connect(function(child)
+        if child:IsA("Part") and child.Name == "GunDrop" and not grabbedGuns[child] then
+            task.wait(0.1)
+            if not isMurdererNear(child) then
+                teleportToGun(child)
+                grabbedGuns[child] = true
+            end
+        end
+    end)
+end
+
+local function setupGunListener()
+    if mapListener then
+        mapListener:Disconnect()
+    end
+
+    mapListener = Workspace.ChildAdded:Connect(function(child)
+        if child:IsA("Model") and child:FindFirstChild("GunDrop") then
+            listenForGunDrop(child)
+        end
+    end)
+
+    for _, child in ipairs(Workspace:GetChildren()) do
+        if child:IsA("Model") and child:FindFirstChild("GunDrop") then
+            listenForGunDrop(child)
+            break
+        end
+    end
+end
+
+Tab3:CreateToggle({
+    Name = "Auto Grab Gun",
+    Default = false,
+    Callback = function(state)
+        if state then
+            grabbedGuns = {}
+            setupGunListener()
+        else
+            if mapListener then
+                mapListener:Disconnect()
+                mapListener = nil
+            end
+            if gunListener then
+                gunListener:Disconnect()
+                gunListener = nil
+            end
+        end
+    end
+})
+
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+local LocalPlayer = Players.LocalPlayer
+
+local ESPEnabledInnocent = false
+local ESPEnabledSheriff = false
+local ESPEnabledMurderer = false
+local ESPInstances = {}
+local RoleData = {}
+
+local function getRoles()
+    local success, data = pcall(function()
+        return ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+    end)
+    if success and data then
+        RoleData = data
+    end
+end
+
+local function getColorByRole(role)
+    if role == "Murderer" then
+        return Color3.fromRGB(255, 0, 0)
+    elseif role == "Sheriff" then
+        return Color3.fromRGB(0, 170, 255)
+    elseif role == "Hero" then
+        return Color3.fromRGB(255, 255, 0)
+    else
+        return Color3.fromRGB(0, 255, 0)
+    end
+end
+
+local function createOrUpdateESP(player)
+    if player == LocalPlayer then return end
+    if not player.Character or not player.Character:FindFirstChild("Head") or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+
+    local roleInfo = RoleData[player.Name]
+    if not roleInfo then return end
+    local role = roleInfo.Role
+
+    if (role == "Innocent" and not ESPEnabledInnocent) or (role == "Sheriff" and not ESPEnabledSheriff) or (role == "Murderer" and not ESPEnabledMurderer) then
+        return
+    end
+
+    local color = getColorByRole(role)
+
+    local char = player.Character
+    local head = char.Head
+
+    if not ESPInstances[player] then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "RoleESP"
+        highlight.FillTransparency = 0.5
+        highlight.OutlineTransparency = 0
+        highlight.Adornee = char
+        highlight.Parent = char
+
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "ESPLabel"
+        billboard.Adornee = head
+        billboard.Size = UDim2.new(0, 100, 0, 30)
+        billboard.StudsOffset = Vector3.new(0, 2, 0)
+        billboard.AlwaysOnTop = true
+        billboard.Parent = head
+
+        local text = Instance.new("TextLabel")
+        text.Size = UDim2.new(1, 0, 1, 0)
+        text.BackgroundTransparency = 1
+        text.TextStrokeTransparency = 0.5
+        text.TextScaled = true
+        text.Font = Enum.Font.SourceSansBold
+        text.Parent = billboard
+
+        ESPInstances[player] = {
+            Highlight = highlight,
+            Billboard = billboard,
+            Text = text,
+        }
+    end
+
+    local espData = ESPInstances[player]
+    if espData.Highlight then
+        espData.Highlight.FillColor = color
+    end
+    if espData.Text then
+        espData.Text.Text = player.Name .. " (" .. role .. ")"
+        espData.Text.TextColor3 = color
+    end
+end
+
+local function clearAllESP()
+    for player, esp in pairs(ESPInstances) do
+        if esp.Highlight then esp.Highlight:Destroy() end
+        if esp.Billboard then esp.Billboard:Destroy() end
+    end
+    table.clear(ESPInstances)
+end
+
+local function setupPlayer(player)
+    player.CharacterAdded:Connect(function()
+        task.wait(0.1)
+        if ESPEnabledInnocent or ESPEnabledSheriff or ESPEnabledMurderer then
+            createOrUpdateESP(player)
+        end
+    end)
+
+    if player.Character then
+        createOrUpdateESP(player)
+    end
+end
+
+local function startESP()
+    getRoles()
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            setupPlayer(player)
+        end
+    end
+
+    Players.PlayerAdded:Connect(function(player)
+        setupPlayer(player)
+    end)
+
+    task.spawn(function()
+        while ESPEnabledInnocent or ESPEnabledSheriff or ESPEnabledMurderer do
+            task.wait(1)
+            getRoles()
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    createOrUpdateESP(player)
+                end
+            end
+        end
+    end)
+end
+
+Tab1:CreateToggle({
+    Name = "Innocent ESP",
+    CurrentValue = ESPEnabledInnocent,
+    Flag = "InnocentESP",
+    Callback = function(value)
+        ESPEnabledInnocent = value
+        if value then startESP()
+       else
+clearAllESP()
+    end
+  end
+})
+
+Tab1:CreateToggle({
+    Name = "Sheriff ESP",
+    CurrentValue = ESPEnabledSheriff,
+    Flag = "SheriffESP",
+    Callback = function(value)
+        ESPEnabledSheriff = value
+        if value then startESP()
+      else
+			clearAllESP()
+    end
+  end
+})
+
+Tab1:CreateToggle({
+    Name = "Murderer ESP",
+    CurrentValue = ESPEnabledMurderer,
+    Flag = "MurdererESP",
+    Callback = function(value)
+        ESPEnabledMurderer = value
+        if value then startESP() 
+        else
+			clearAllESP()
+    end
+  end
+})
+
+Remotes.Gameplay.RoundStart.OnClientEvent:Connect(function()
+    if ESPEnabledInnocent or ESPEnabledSheriff or ESPEnabledMurderer then
+        clearAllESP()
+        RoleData = {}
+        getRoles()
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                setupPlayer(player)
+            end
+        end
+    end
+end)
+
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local ConnectedHandles = {}
+local BombTeleportEnabled = false
+local BombConnection = nil
+
+local function TeleportAbove(part)
+    local character = LocalPlayer.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local height = part.Size.Y
+        character.HumanoidRootPart.CFrame = part.CFrame + Vector3.new(0, height / 2 + 3, 0)
+    end
+end
+
+local function HandleFound(part)
+    if ConnectedHandles[part] then return end
+
+    task.defer(function()
+        if part and part.Parent then
+            TeleportAbove(part)
+        end
+    end)
+
+    local connection
+    connection = part.Destroying:Connect(function()
+        if ConnectedHandles[part] then
+            ConnectedHandles[part]:Disconnect()
+            ConnectedHandles[part] = nil
+        end
+    end)
+
+    ConnectedHandles[part] = connection
+end
+
+Tab3:CreateToggle({
+    Name = "Auto Teleport To Prank Bomb",
+    Default = false,
+    Callback = function(state)
+        BombTeleportEnabled = state
+
+        if BombTeleportEnabled then
+            BombConnection = RunService.Heartbeat:Connect(function()
+                for _, obj in ipairs(Workspace:GetChildren()) do
+                    if obj:IsA("Part") and obj.Name == "Handle" then
+                        local creator = obj:FindFirstChild("creator")
+                        if creator and creator.Value == LocalPlayer then
+                            HandleFound(obj)
+                        end
+                    end
+                end
+            end)
+        else
+            if BombConnection then
+                BombConnection:Disconnect()
+                BombConnection = nil
+            end
+            for part, conn in pairs(ConnectedHandles) do
+                if conn then
+                    conn:Disconnect()
+                end
+            end
+            ConnectedHandles = {}
+        end
+    end
+})
